@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources >
+    <declare-styleable name="PolarClockView">
+        <attr name="radius" format="integer" />
+        <attr name="monthsArcColor" format="color" />
+        <attr name="daysArcColor" format="color" />
+        <attr name="daysOfWeekArcColor" format="color" />
+        <attr name="hoursArcColor" format="color" />
+        <attr name="minutesArcColor" format="color" />
+        <attr name="secondsArcColor" format="color" />
+    </declare-styleable>
+</resources>
