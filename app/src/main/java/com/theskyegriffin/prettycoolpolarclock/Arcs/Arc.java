@@ -1,6 +1,5 @@
-package com.theskyegriffin.polarclocklibrary.Arcs;
+package com.theskyegriffin.prettycoolpolarclock.Arcs;
 
-import android.animation.ValueAnimator;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -10,8 +9,7 @@ import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.support.annotation.ColorInt;
 
-import com.theskyegriffin.polarclocklibrary.PolarClockView;
-import com.theskyegriffin.polarclocklibrary.Utilities.ColorAnalyzer;
+import com.theskyegriffin.prettycoolpolarclock.Utilities.ColorAnalyzer;
 
 import java.util.Calendar;
 
@@ -30,7 +28,7 @@ public abstract class Arc {
     final Path textPath;
     final RectF rect;
     private final int radius;
-    private final PolarClockView clockView;
+//    private final PolarClockView clockView;
     float currentSweepAngle;
     float newSweepAngle;
 
@@ -38,11 +36,11 @@ public abstract class Arc {
         return RectangleOffset;
     }
 
-    Arc(PolarClockView clockView, int radius, @ColorInt int arcColor){
+    Arc(int radius, @ColorInt int arcColor){
         this.radius = radius;
         float arcOffsetFactor = (float) 1 / 8;
         ArcOffsetConstant = radius * arcOffsetFactor;
-        this.clockView = clockView;
+//        this.clockView = clockView;
         currentSweepAngle = 0;
         arcPaint = new Paint();
         textPaint = new Paint();
@@ -74,19 +72,19 @@ public abstract class Arc {
         return ColorAnalyzer.isColorBright(arcColor) ? Color.BLACK : Color.WHITE;
     }
 
-    public void startAnimation() {
-        if (currentSweepAngle != newSweepAngle) {
-            ValueAnimator animation = ValueAnimator.ofFloat(currentSweepAngle, newSweepAngle);
-            animation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator animation) {
-                    currentSweepAngle = (float) animation.getAnimatedValue();
-                    clockView.postInvalidate();
-                }
-            });
-            animation.start();
-        }
-    }
+//    public void startAnimation() {
+//        if (currentSweepAngle != newSweepAngle) {
+//            ValueAnimator animation = ValueAnimator.ofFloat(currentSweepAngle, newSweepAngle);
+//            animation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//                @Override
+//                public void onAnimationUpdate(ValueAnimator animation) {
+//                    currentSweepAngle = (float) animation.getAnimatedValue();
+//                    clockView.postInvalidate();
+//                }
+//            });
+//            animation.start();
+//        }
+//    }
 
     int getTextPathLength(char[] text) {
         PathMeasure pathMeasure = new PathMeasure(textPath, false);

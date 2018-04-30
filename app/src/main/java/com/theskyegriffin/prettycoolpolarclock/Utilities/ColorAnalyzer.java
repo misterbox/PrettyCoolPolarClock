@@ -1,4 +1,4 @@
-package com.theskyegriffin.polarclocklibrary.Utilities;
+package com.theskyegriffin.prettycoolpolarclock.Utilities;
 
 import android.graphics.Color;
 import android.support.annotation.ColorInt;

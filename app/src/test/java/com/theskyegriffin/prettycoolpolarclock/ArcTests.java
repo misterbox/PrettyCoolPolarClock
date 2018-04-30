@@ -1,13 +1,13 @@
-package com.theskyegriffin.polarclocklibrary;
+package com.theskyegriffin.prettycoolpolarclock;
 
 import android.graphics.Color;
 
-import com.theskyegriffin.polarclocklibrary.Arcs.DaysArc;
-import com.theskyegriffin.polarclocklibrary.Arcs.DaysOfWeekArc;
-import com.theskyegriffin.polarclocklibrary.Arcs.HoursArc;
-import com.theskyegriffin.polarclocklibrary.Arcs.MinutesArc;
-import com.theskyegriffin.polarclocklibrary.Arcs.MonthsArc;
-import com.theskyegriffin.polarclocklibrary.Arcs.SecondsArc;
+import com.theskyegriffin.prettycoolpolarclock.Arcs.DaysArc;
+import com.theskyegriffin.prettycoolpolarclock.Arcs.DaysOfWeekArc;
+import com.theskyegriffin.prettycoolpolarclock.Arcs.HoursArc;
+import com.theskyegriffin.prettycoolpolarclock.Arcs.MinutesArc;
+import com.theskyegriffin.prettycoolpolarclock.Arcs.MonthsArc;
+import com.theskyegriffin.prettycoolpolarclock.Arcs.SecondsArc;
 
 import org.junit.Test;
 

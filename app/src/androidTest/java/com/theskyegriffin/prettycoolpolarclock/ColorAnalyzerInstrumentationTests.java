@@ -1,12 +1,10 @@
-package com.theskyegriffin.polarclocklibrary;
+package com.theskyegriffin.prettycoolpolarclock;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.ColorInt;
-import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.theskyegriffin.polarclocklibrary.Utilities.ColorAnalyzer;
+import com.theskyegriffin.prettycoolpolarclock.Utilities.ColorAnalyzer;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,4 +1,4 @@
-package com.theskyegriffin.polarclocklibrary;
+package com.theskyegriffin.prettycoolpolarclock;
 
 import android.os.Handler;
 
@@ -17,7 +17,11 @@ public class PolarClockRunnable implements Runnable {
     public void run() {
         Calendar currentDateTime = Calendar.getInstance();
         polarClock.updateCurrentTime(currentDateTime);
-        polarClock.startAnimation();
+//        polarClock.startAnimation();
+        start();
+    }
+
+    public void start() {
         handler.postDelayed(this, 1000);
     }
 }

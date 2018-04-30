@@ -1,8 +1,6 @@
-package com.theskyegriffin.polarclocklibrary.Arcs;
+package com.theskyegriffin.prettycoolpolarclock.Arcs;
 
 import android.graphics.Canvas;
-
-import com.theskyegriffin.polarclocklibrary.PolarClockView;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -10,8 +8,8 @@ import java.util.Locale;
 public class DaysOfWeekArc extends Arc {
     private String currentDayDisplayName;
 
-    public DaysOfWeekArc(PolarClockView clockView, int radius, int arcColor) {
-        super(clockView, radius, arcColor);
+    public DaysOfWeekArc(int radius, int arcColor) {
+        super(radius, arcColor);
         ArcOffsetMultiple = 2;
         RectangleOffset = ArcOffsetMultiple * ArcOffsetConstant;
     }

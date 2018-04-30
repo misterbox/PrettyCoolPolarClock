@@ -1,8 +1,6 @@
-package com.theskyegriffin.polarclocklibrary.Arcs;
+package com.theskyegriffin.prettycoolpolarclock.Arcs;
 
 import android.graphics.Canvas;
-
-import com.theskyegriffin.polarclocklibrary.PolarClockView;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -10,8 +8,8 @@ import java.util.Locale;
 public class MonthsArc extends Arc {
     private String currentMonthDisplayName;
 
-    public MonthsArc(PolarClockView clockView, int radius, int arcColor) {
-        super(clockView, radius, arcColor);
+    public MonthsArc(int radius, int arcColor) {
+        super(radius, arcColor);
     }
 
     @Override
