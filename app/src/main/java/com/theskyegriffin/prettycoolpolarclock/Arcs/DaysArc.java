@@ -18,7 +18,8 @@ public class DaysArc extends Arc {
         currentDate = currentDateTime.getTime().getDate();
         int daysInMonth = currentDateTime.getActualMaximum(Calendar.DAY_OF_MONTH);
         float monthPercentComplete = (float) currentDate / daysInMonth;
-        newSweepAngle = monthPercentComplete * 360;
+//        newSweepAngle = monthPercentComplete * 360;
+        currentSweepAngle = monthPercentComplete * 360;
     }
 
     @Override

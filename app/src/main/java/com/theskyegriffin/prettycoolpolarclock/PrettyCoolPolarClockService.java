@@ -47,6 +47,7 @@ public class PrettyCoolPolarClockService extends WallpaperService {
         };
 
         PolarClockWallpaperEngine() {
+            Log.d("ENGINE", "Constructor");
             handler = new Handler();
             InitializeDependencies();
         }
@@ -63,6 +64,7 @@ public class PrettyCoolPolarClockService extends WallpaperService {
 
         @Override
         public void onVisibilityChanged(boolean isVisible) {
+            Log.d("ENGINE", "onVisibilityChanged: " + isVisible);
             this.isVisible = isVisible;
 
             if (isVisible) {
@@ -75,6 +77,7 @@ public class PrettyCoolPolarClockService extends WallpaperService {
 
         @Override
         public void onSurfaceDestroyed(SurfaceHolder surfaceHolder) {
+            Log.d("ENGINE", "onSurfaceDestroyed");
             super.onSurfaceDestroyed(surfaceHolder);
             this.isVisible = false;
             handler.removeCallbacks(polarClockRunner);
@@ -82,6 +85,7 @@ public class PrettyCoolPolarClockService extends WallpaperService {
 
         @Override
         public void onSurfaceChanged(SurfaceHolder surfaceHolder, int format, int width, int height) {
+            Log.d("ENGINE", "onSurfaceChanged, width: " + width + " height: " + height);
             this.width = width;
             this.height = height;
             super.onSurfaceChanged(surfaceHolder, format, width, height);
@@ -101,6 +105,7 @@ public class PrettyCoolPolarClockService extends WallpaperService {
 
             try {
                 canvas = surfaceHolder.lockCanvas();
+                canvas.drawColor(Color.BLACK);
 
                 if (canvas != null) {
                     int heightMidpoint = height / 2;

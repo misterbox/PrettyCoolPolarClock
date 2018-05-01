@@ -17,7 +17,8 @@ public class MinutesArc extends Arc {
     public void updateCurrentTime(Calendar currentDateTime) {
         currentMinute = currentDateTime.getTime().getMinutes();
         float hourPercentComplete = (float) currentMinute / 60;
-        newSweepAngle = hourPercentComplete * 360;
+//        newSweepAngle = hourPercentComplete * 360;
+        currentSweepAngle = hourPercentComplete * 360;
     }
 
     @Override

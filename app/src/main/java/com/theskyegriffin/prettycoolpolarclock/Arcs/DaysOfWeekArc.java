@@ -19,7 +19,8 @@ public class DaysOfWeekArc extends Arc {
         int currentDay = currentDateTime.getTime().getDay();
         currentDayDisplayName = currentDateTime.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.US).toUpperCase();
         float weekPercentComplete = (float) (currentDay + 1) / 7;
-        newSweepAngle = weekPercentComplete * 360;
+//        newSweepAngle = weekPercentComplete * 360;
+        currentSweepAngle = weekPercentComplete * 360;
     }
 
     @Override
