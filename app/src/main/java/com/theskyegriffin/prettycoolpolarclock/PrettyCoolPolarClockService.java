@@ -1,5 +1,6 @@
 package com.theskyegriffin.prettycoolpolarclock;
 
+import android.annotation.TargetApi;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Handler;
@@ -17,6 +18,7 @@ import com.theskyegriffin.prettycoolpolarclock.Arcs.SecondsArc;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class PrettyCoolPolarClockService extends WallpaperService {
     @Override
@@ -47,7 +49,6 @@ public class PrettyCoolPolarClockService extends WallpaperService {
         };
 
         PolarClockWallpaperEngine() {
-            Log.d("ENGINE", "Constructor");
             handler = new Handler();
             InitializeDependencies();
         }
@@ -91,8 +92,11 @@ public class PrettyCoolPolarClockService extends WallpaperService {
             super.onSurfaceChanged(surfaceHolder, format, width, height);
         }
 
+        @TargetApi(26)
         private void updateCurrentTime() {
             Calendar currentDateTime = Calendar.getInstance();
+//            Calendar currentDateTime = new Calendar.Builder().setDate(2018, 3, 30).
+//                    setTimeOfDay(23, 59, 59).build();
 
             for (Arc arc : arcs) {
                 arc.updateCurrentTime(currentDateTime);
@@ -107,13 +111,11 @@ public class PrettyCoolPolarClockService extends WallpaperService {
                 canvas = surfaceHolder.lockCanvas();
                 canvas.drawColor(Color.BLACK);
 
-                if (canvas != null) {
-                    int heightMidpoint = height / 2;
-                    int widthMidpoint = width / 2;
+                int heightMidpoint = height / 2;
+                int widthMidpoint = width / 2;
 
-                    for (Arc arc : arcs) {
-                        arc.draw(canvas, heightMidpoint, widthMidpoint);
-                    }
+                for (Arc arc : arcs) {
+                    arc.draw(canvas, heightMidpoint, widthMidpoint);
                 }
             }
             catch (Exception e) {
