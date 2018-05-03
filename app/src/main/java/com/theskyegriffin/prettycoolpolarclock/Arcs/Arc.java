@@ -18,6 +18,7 @@ public abstract class Arc {
     static float ArcOffsetConstant;
     float ArcOffsetMultiple = 0;
     final float ArcStartingAngle = 270;
+    final float MaxArcSweepAngle = 359.9f;
     private static final int CircleStrokeWidth = 50;
     private final boolean SetCircleAntiAlias = true;
     private final Paint.Style ArcStyle = Paint.Style.STROKE;

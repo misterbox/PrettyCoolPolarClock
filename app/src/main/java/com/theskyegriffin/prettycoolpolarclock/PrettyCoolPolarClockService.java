@@ -18,7 +18,6 @@ import com.theskyegriffin.prettycoolpolarclock.Arcs.SecondsArc;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 public class PrettyCoolPolarClockService extends WallpaperService {
     @Override
@@ -95,8 +94,6 @@ public class PrettyCoolPolarClockService extends WallpaperService {
         @TargetApi(26)
         private void updateCurrentTime() {
             Calendar currentDateTime = Calendar.getInstance();
-//            Calendar currentDateTime = new Calendar.Builder().setDate(2018, 3, 30).
-//                    setTimeOfDay(23, 59, 59).build();
 
             for (Arc arc : arcs) {
                 arc.updateCurrentTime(currentDateTime);

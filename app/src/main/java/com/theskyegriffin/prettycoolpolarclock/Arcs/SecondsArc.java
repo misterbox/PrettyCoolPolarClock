@@ -18,7 +18,7 @@ public class SecondsArc extends Arc {
         currentSecond = currentDateTime.getTime().getSeconds();
         float minutePercentComplete = (float) currentSecond / 60;
 //        newSweepAngle = minutePercentComplete * 360;
-        currentSweepAngle = minutePercentComplete * 360;
+        currentSweepAngle = minutePercentComplete * MaxArcSweepAngle;
     }
 
     @Override

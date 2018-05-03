@@ -18,7 +18,7 @@ public class HoursArc extends Arc {
         currentHour = currentDateTime.getTime().getHours();
         float dayPercentComplete = (float) currentHour / 24;
 //        newSweepAngle = dayPercentComplete * 360;
-        currentSweepAngle = dayPercentComplete * 360;
+        currentSweepAngle = dayPercentComplete * MaxArcSweepAngle;
     }
 
     @Override

@@ -18,7 +18,7 @@ public class MonthsArc extends Arc {
         currentMonthDisplayName = currentDateTime.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US).toUpperCase();
         float yearPercentComplete = (float) (currentMonth + 1) / 12;
 //        newSweepAngle = yearPercentComplete * 360;
-        currentSweepAngle = yearPercentComplete * 360;
+        currentSweepAngle = yearPercentComplete * MaxArcSweepAngle;
     }
 
     @Override
