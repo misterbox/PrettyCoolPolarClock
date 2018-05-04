@@ -1,14 +1,17 @@
 package com.theskyegriffin.prettycoolpolarclock.Arcs;
 
 import android.graphics.Canvas;
+import android.support.annotation.ColorInt;
+
+import com.theskyegriffin.prettycoolpolarclock.PrettyCoolPolarClockService.PolarClockWallpaperEngine;
 
 import java.util.Calendar;
 
 public class DaysArc extends Arc {
     private int currentDate;
 
-    public DaysArc(int radius, int arcColor) {
-        super(radius, arcColor);
+    public DaysArc(PolarClockWallpaperEngine wallpaperEngine, int radius, @ColorInt int arcColor) {
+        super(wallpaperEngine, radius, arcColor);
         ArcOffsetMultiple = 1;
         RectangleOffset = ArcOffsetMultiple * ArcOffsetConstant;
     }

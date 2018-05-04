@@ -1,6 +1,5 @@
 package com.theskyegriffin.prettycoolpolarclock;
 
-import android.annotation.TargetApi;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Handler;
@@ -25,7 +24,7 @@ public class PrettyCoolPolarClockService extends WallpaperService {
         return new PolarClockWallpaperEngine();
     }
 
-    private class PolarClockWallpaperEngine extends Engine {
+    public class PolarClockWallpaperEngine extends Engine {
         private final Handler handler;
         private ArrayList<Arc> arcs;
         private int width;
@@ -46,6 +45,7 @@ public class PrettyCoolPolarClockService extends WallpaperService {
                 draw();
             }
         };
+        private Canvas canvas;
 
         PolarClockWallpaperEngine() {
             handler = new Handler();
@@ -54,12 +54,12 @@ public class PrettyCoolPolarClockService extends WallpaperService {
 
         private void InitializeDependencies() {
             arcs = new ArrayList<Arc>();
-            arcs.add(new SecondsArc(radius, secondsArcColor));
-            arcs.add(new MinutesArc(radius, minutesArcColor));
-            arcs.add(new HoursArc(radius, hoursArcColor));
-            arcs.add(new DaysOfWeekArc(radius, daysOfWeekArcColor));
-            arcs.add(new DaysArc(radius, daysArcColor));
-            arcs.add(new MonthsArc(radius, monthsArcColor));
+            arcs.add(new SecondsArc(this, radius, secondsArcColor));
+            arcs.add(new MinutesArc(this, radius, minutesArcColor));
+            arcs.add(new HoursArc(this, radius, hoursArcColor));
+            arcs.add(new DaysOfWeekArc(this, radius, daysOfWeekArcColor));
+            arcs.add(new DaysArc(this, radius, daysArcColor));
+            arcs.add(new MonthsArc(this, radius, monthsArcColor));
         }
 
         @Override
@@ -91,7 +91,6 @@ public class PrettyCoolPolarClockService extends WallpaperService {
             super.onSurfaceChanged(surfaceHolder, format, width, height);
         }
 
-        @TargetApi(26)
         private void updateCurrentTime() {
             Calendar currentDateTime = Calendar.getInstance();
 
@@ -100,9 +99,9 @@ public class PrettyCoolPolarClockService extends WallpaperService {
             }
         }
 
-        private void draw() {
+        public void draw() {
             SurfaceHolder surfaceHolder = getSurfaceHolder();
-            Canvas canvas = null;
+            canvas = null;
 
             try {
                 canvas = surfaceHolder.lockCanvas();
@@ -121,9 +120,7 @@ public class PrettyCoolPolarClockService extends WallpaperService {
                         "Stack trace: " + e.getStackTrace());
             }
             finally {
-                if (canvas != null) {
-                    surfaceHolder.unlockCanvasAndPost(canvas);
-                }
+                surfaceHolder.unlockCanvasAndPost(canvas);
             }
 
             handler.removeCallbacks(polarClockRunner);

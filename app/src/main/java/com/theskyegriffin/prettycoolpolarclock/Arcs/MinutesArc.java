@@ -1,14 +1,17 @@
 package com.theskyegriffin.prettycoolpolarclock.Arcs;
 
 import android.graphics.Canvas;
+import android.support.annotation.ColorInt;
+
+import com.theskyegriffin.prettycoolpolarclock.PrettyCoolPolarClockService.PolarClockWallpaperEngine;
 
 import java.util.Calendar;
 
 public class MinutesArc extends Arc {
     private int currentMinute;
 
-    public MinutesArc(int radius, int arcColor) {
-        super(radius, arcColor);
+    public MinutesArc(PolarClockWallpaperEngine wallpaperEngine, int radius, @ColorInt int arcColor) {
+        super(wallpaperEngine, radius, arcColor);
         ArcOffsetMultiple = 4;
         RectangleOffset = ArcOffsetMultiple * ArcOffsetConstant;
     }
