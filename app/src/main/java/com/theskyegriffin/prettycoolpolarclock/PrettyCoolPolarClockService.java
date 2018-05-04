@@ -54,12 +54,12 @@ public class PrettyCoolPolarClockService extends WallpaperService {
 
         private void InitializeDependencies() {
             arcs = new ArrayList<Arc>();
-            arcs.add(new SecondsArc(this, radius, secondsArcColor));
-            arcs.add(new MinutesArc(this, radius, minutesArcColor));
-            arcs.add(new HoursArc(this, radius, hoursArcColor));
-            arcs.add(new DaysOfWeekArc(this, radius, daysOfWeekArcColor));
-            arcs.add(new DaysArc(this, radius, daysArcColor));
-            arcs.add(new MonthsArc(this, radius, monthsArcColor));
+            arcs.add(new SecondsArc(radius, secondsArcColor));
+            arcs.add(new MinutesArc(radius, minutesArcColor));
+            arcs.add(new HoursArc(radius, hoursArcColor));
+            arcs.add(new DaysOfWeekArc(radius, daysOfWeekArcColor));
+            arcs.add(new DaysArc(radius, daysArcColor));
+            arcs.add(new MonthsArc(radius, monthsArcColor));
         }
 
         @Override
@@ -103,8 +103,13 @@ public class PrettyCoolPolarClockService extends WallpaperService {
             ArcAnimationSet animationSet = new ArcAnimationSet(this);
 
             for (Arc arc : arcs) {
-                ValueAnimator animator = ValueAnimator.ofFloat(arc.getCurrentSweepAngle(), arc.getNewSweepAngle());
-                animationSet.add(animator, arc);
+                float currentSweepAngle = arc.getCurrentSweepAngle();
+                float newSweepAngle = arc.getNewSweepAngle();
+
+                if (currentSweepAngle != newSweepAngle) {
+                    ValueAnimator animator = ValueAnimator.ofFloat(arc.getCurrentSweepAngle(), arc.getNewSweepAngle());
+                    animationSet.add(animator, arc);
+                }
             }
 
             animationSet.start();

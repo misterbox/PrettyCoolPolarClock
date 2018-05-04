@@ -3,16 +3,16 @@ package com.theskyegriffin.prettycoolpolarclock.Arcs;
 import android.graphics.Canvas;
 import android.support.annotation.ColorInt;
 
-import com.theskyegriffin.prettycoolpolarclock.PrettyCoolPolarClockService.PolarClockWallpaperEngine;
-
 import java.util.Calendar;
 import java.util.Locale;
 
 public class MonthsArc extends Arc {
     private String currentMonthDisplayName;
 
-    public MonthsArc(PolarClockWallpaperEngine wallpaperEngine, int radius, @ColorInt int arcColor) {
-        super(wallpaperEngine, radius, arcColor);
+    public MonthsArc(int radius, @ColorInt int arcColor) {
+        super(radius, arcColor);
+
+        arcType = ArcTypes.Months;
     }
 
     @Override
@@ -20,8 +20,7 @@ public class MonthsArc extends Arc {
         int currentMonth = currentDateTime.getTime().getMonth();
         currentMonthDisplayName = currentDateTime.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US).toUpperCase();
         float yearPercentComplete = (float) (currentMonth + 1) / 12;
-//        newSweepAngle = yearPercentComplete * 360;
-        currentSweepAngle = yearPercentComplete * MaxArcSweepAngle;
+        newSweepAngle = yearPercentComplete * MaxArcSweepAngle;
     }
 
     @Override

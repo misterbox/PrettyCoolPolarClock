@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 public class ArcTests {
     @Test
     public void givenSecondsArc_WithRadius400_SetsRectangleOffsetTo250() {
-        SecondsArc arc = new SecondsArc(null, 400, Color.BLACK);
+        SecondsArc arc = new SecondsArc(400, Color.BLACK);
         float expectedOffset = 250;
 
         float actualOffset = arc.getRectangleOffset();
@@ -26,7 +26,7 @@ public class ArcTests {
 
     @Test
     public void givenMinutesArc_WithRadius400_SetsRectangleOffsetTo200() {
-        MinutesArc arc = new MinutesArc(null, 400, Color.BLACK);
+        MinutesArc arc = new MinutesArc(400, Color.BLACK);
         float expectedOffset = 200;
 
         float actualOffset = arc.getRectangleOffset();
@@ -36,7 +36,7 @@ public class ArcTests {
 
     @Test
     public void givenHoursArc_WithRadius400_SetsRectangleOffsetTo150() {
-        HoursArc arc = new HoursArc(null, 400, Color.BLACK);
+        HoursArc arc = new HoursArc(400, Color.BLACK);
         float expectedOffset = 150;
 
         float actualOffset = arc.getRectangleOffset();
@@ -46,7 +46,7 @@ public class ArcTests {
 
     @Test
     public void givenDaysOfWeekArc_WithRadius400_SetsRectangleOffsetTo100() {
-        DaysOfWeekArc arc = new DaysOfWeekArc(null, 400, Color.BLACK);
+        DaysOfWeekArc arc = new DaysOfWeekArc(400, Color.BLACK);
         float expectedOffset = 100;
 
         float actualOffset = arc.getRectangleOffset();
@@ -56,7 +56,7 @@ public class ArcTests {
 
     @Test
     public void givenDaysArc_WithRadius400_SetsRectangleOffsetTo50() {
-        DaysArc arc = new DaysArc(null, 400, Color.BLACK);
+        DaysArc arc = new DaysArc(400, Color.BLACK);
         float expectedOffset = 50;
 
         float actualOffset = arc.getRectangleOffset();
@@ -66,7 +66,7 @@ public class ArcTests {
 
     @Test
     public void givenMonthsArc_WithRadius300_SetsRectangleOffsetToZero() {
-        MonthsArc arc = new MonthsArc(null, 300, Color.BLACK);
+        MonthsArc arc = new MonthsArc(300, Color.BLACK);
         float expectedOffset = 0;
 
         float actualOffset = arc.getRectangleOffset();

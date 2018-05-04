@@ -3,25 +3,23 @@ package com.theskyegriffin.prettycoolpolarclock.Arcs;
 import android.graphics.Canvas;
 import android.support.annotation.ColorInt;
 
-import com.theskyegriffin.prettycoolpolarclock.PrettyCoolPolarClockService.PolarClockWallpaperEngine;
-
 import java.util.Calendar;
 
 public class MinutesArc extends Arc {
     private int currentMinute;
 
-    public MinutesArc(PolarClockWallpaperEngine wallpaperEngine, int radius, @ColorInt int arcColor) {
-        super(wallpaperEngine, radius, arcColor);
+    public MinutesArc(int radius, @ColorInt int arcColor) {
+        super(radius, arcColor);
         ArcOffsetMultiple = 4;
         RectangleOffset = ArcOffsetMultiple * ArcOffsetConstant;
+        arcType = ArcTypes.Minutes;
     }
 
     @Override
     public void updateCurrentTime(Calendar currentDateTime) {
         currentMinute = currentDateTime.getTime().getMinutes();
         float hourPercentComplete = (float) currentMinute / 60;
-//        newSweepAngle = hourPercentComplete * 360;
-        currentSweepAngle = hourPercentComplete * MaxArcSweepAngle;
+        newSweepAngle = hourPercentComplete * MaxArcSweepAngle;
     }
 
     @Override

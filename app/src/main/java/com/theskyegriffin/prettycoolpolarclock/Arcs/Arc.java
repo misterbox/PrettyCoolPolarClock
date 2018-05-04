@@ -1,6 +1,5 @@
 package com.theskyegriffin.prettycoolpolarclock.Arcs;
 
-import android.animation.ValueAnimator;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -9,15 +8,12 @@ import android.graphics.PathMeasure;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.support.annotation.ColorInt;
-import android.util.Log;
 
-import com.theskyegriffin.prettycoolpolarclock.PrettyCoolPolarClockService.PolarClockWallpaperEngine;
 import com.theskyegriffin.prettycoolpolarclock.Utilities.ColorAnalyzer;
 
 import java.util.Calendar;
 
 public abstract class Arc {
-    private final PolarClockWallpaperEngine polarClockWallpaperEngine;
     private final int radius;
     private static final int CircleStrokeWidth = 50;
     private final boolean SetCircleAntiAlias = true;
@@ -33,16 +29,15 @@ public abstract class Arc {
     final Paint textPaint;
     final Path textPath;
     final RectF rect;
-//    private final PolarClockView clockView;
     float currentSweepAngle;
     float newSweepAngle;
 
-    Arc(PolarClockWallpaperEngine wallpaperEngine, int radius, @ColorInt int arcColor){
-        polarClockWallpaperEngine = wallpaperEngine;
+    public ArcTypes arcType;
+
+    Arc(int radius, @ColorInt int arcColor){
         this.radius = radius;
         float arcOffsetFactor = (float) 1 / 8;
         ArcOffsetConstant = radius * arcOffsetFactor;
-//        this.clockView = clockView;
         currentSweepAngle = 0;
         arcPaint = new Paint();
         textPaint = new Paint();
@@ -92,21 +87,6 @@ public abstract class Arc {
 
     private int GetTextColor(@ColorInt int arcColor) {
         return ColorAnalyzer.isColorBright(arcColor) ? Color.BLACK : Color.WHITE;
-    }
-
-    public void startAnimation() {
-        if (currentSweepAngle != newSweepAngle) {
-            ValueAnimator animation = ValueAnimator.ofFloat(currentSweepAngle, newSweepAngle);
-            animation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator animation) {
-                    Log.d("ANIMATION", "animation update");
-                    currentSweepAngle = (float) animation.getAnimatedValue();
-//                    clockView.postInvalidate();
-                }
-            });
-            animation.start();
-        }
     }
 
     int getTextPathLength(char[] text) {

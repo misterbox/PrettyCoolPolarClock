@@ -3,17 +3,16 @@ package com.theskyegriffin.prettycoolpolarclock.Arcs;
 import android.graphics.Canvas;
 import android.support.annotation.ColorInt;
 
-import com.theskyegriffin.prettycoolpolarclock.PrettyCoolPolarClockService.PolarClockWallpaperEngine;
-
 import java.util.Calendar;
 
 public class SecondsArc extends Arc {
     private int currentSecond;
 
-    public SecondsArc(PolarClockWallpaperEngine wallpaperEngine, int radius, @ColorInt int arcColor) {
-        super(wallpaperEngine, radius, arcColor);
+    public SecondsArc(int radius, @ColorInt int arcColor) {
+        super(radius, arcColor);
         ArcOffsetMultiple = 5;
         RectangleOffset = ArcOffsetMultiple * ArcOffsetConstant;
+        arcType = ArcTypes.Seconds;
     }
 
     @Override
@@ -21,7 +20,6 @@ public class SecondsArc extends Arc {
         currentSecond = currentDateTime.getTime().getSeconds();
         float minutePercentComplete = (float) currentSecond / 60;
         newSweepAngle = minutePercentComplete * MaxArcSweepAngle;
-//        currentSweepAngle = minutePercentComplete * MaxArcSweepAngle;
     }
 
     @Override

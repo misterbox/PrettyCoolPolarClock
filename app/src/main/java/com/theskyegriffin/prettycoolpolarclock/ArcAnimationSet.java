@@ -1,9 +1,6 @@
 package com.theskyegriffin.prettycoolpolarclock;
 
 import android.animation.ValueAnimator;
-import android.annotation.TargetApi;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.util.SparseBooleanArray;
 
 import com.theskyegriffin.prettycoolpolarclock.Arcs.Arc;
@@ -25,12 +22,14 @@ public class ArcAnimationSet {
     public void add(ValueAnimator animator, final Arc arc) {
         animators.add(animator);
         animatorsCompleteState.append(animator.hashCode(), false);
+        final ArcAnimationSet self = this;
+
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                this.onAnimationUpdate(animation);
                 float currentSweepAngle = (float) animation.getAnimatedValue();
                 arc.setCurrentSweepAngle(currentSweepAngle);
+                self.onAnimationUpdate(animation);
             }
         });
     }
@@ -51,25 +50,19 @@ public class ArcAnimationSet {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void resume() {
         for (ValueAnimator animator : animators) {
             animator.resume();
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void pause() {
         for (ValueAnimator animator : animators) {
             animator.pause();
         }
     }
 
-    // on animation update
-    //  pause animation
-    //  if all steps for current animation frame is complete, redraw canvas and start next frame
-    @TargetApi(Build.VERSION_CODES.KITKAT)
-    public void onAnimationUpdate(ValueAnimator animator) {
+    private void onAnimationUpdate(ValueAnimator animator) {
         if (animators.contains(animator)) {
             animator.pause();
             animatorsCompleteState.put(animator.hashCode(), true);

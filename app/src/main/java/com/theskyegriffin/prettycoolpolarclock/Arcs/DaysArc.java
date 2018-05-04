@@ -3,17 +3,17 @@ package com.theskyegriffin.prettycoolpolarclock.Arcs;
 import android.graphics.Canvas;
 import android.support.annotation.ColorInt;
 
-import com.theskyegriffin.prettycoolpolarclock.PrettyCoolPolarClockService.PolarClockWallpaperEngine;
-
 import java.util.Calendar;
 
 public class DaysArc extends Arc {
     private int currentDate;
 
-    public DaysArc(PolarClockWallpaperEngine wallpaperEngine, int radius, @ColorInt int arcColor) {
-        super(wallpaperEngine, radius, arcColor);
+    public DaysArc(int radius, @ColorInt int arcColor) {
+        super(radius, arcColor);
         ArcOffsetMultiple = 1;
         RectangleOffset = ArcOffsetMultiple * ArcOffsetConstant;
+
+        arcType = ArcTypes.Days;
     }
 
     @Override
@@ -21,8 +21,7 @@ public class DaysArc extends Arc {
         currentDate = currentDateTime.getTime().getDate();
         int daysInMonth = currentDateTime.getActualMaximum(Calendar.DAY_OF_MONTH);
         float monthPercentComplete = (float) currentDate / daysInMonth;
-//        newSweepAngle = monthPercentComplete * 360;
-        currentSweepAngle = monthPercentComplete * MaxArcSweepAngle;
+        newSweepAngle = monthPercentComplete * MaxArcSweepAngle;
     }
 
     @Override
