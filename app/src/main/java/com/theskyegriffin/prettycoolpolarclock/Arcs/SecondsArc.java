@@ -20,7 +20,7 @@ public class SecondsArc extends Arc {
     public void updateCurrentTime(Calendar currentDateTime) {
         currentSecond = currentDateTime.getTime().getSeconds();
         float minutePercentComplete = (float) currentSecond / 60;
-        newSweepAngle = minutePercentComplete * 360;
+        newSweepAngle = minutePercentComplete * MaxArcSweepAngle;
 //        currentSweepAngle = minutePercentComplete * MaxArcSweepAngle;
     }
 

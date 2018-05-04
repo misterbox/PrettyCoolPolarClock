@@ -10,7 +10,6 @@ import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.support.annotation.ColorInt;
 import android.util.Log;
-import android.view.SurfaceHolder;
 
 import com.theskyegriffin.prettycoolpolarclock.PrettyCoolPolarClockService.PolarClockWallpaperEngine;
 import com.theskyegriffin.prettycoolpolarclock.Utilities.ColorAnalyzer;
@@ -19,28 +18,24 @@ import java.util.Calendar;
 
 public abstract class Arc {
     private final PolarClockWallpaperEngine polarClockWallpaperEngine;
-    float RectangleOffset = 0;
-    static float ArcOffsetConstant;
-    float ArcOffsetMultiple = 0;
-    final float ArcStartingAngle = 270;
-    final float MaxArcSweepAngle = 359.9f;
+    private final int radius;
     private static final int CircleStrokeWidth = 50;
     private final boolean SetCircleAntiAlias = true;
     private final Paint.Style ArcStyle = Paint.Style.STROKE;
     private final Paint.Cap StrokeCap = Paint.Cap.ROUND;
+    float RectangleOffset = 0;
+    float ArcOffsetMultiple = 0;
+    final float ArcStartingAngle = 270;
+    final float MaxArcSweepAngle = 359.9f;
+    static float ArcOffsetConstant;
 
     final Paint arcPaint;
     final Paint textPaint;
     final Path textPath;
     final RectF rect;
-    private final int radius;
 //    private final PolarClockView clockView;
     float currentSweepAngle;
     float newSweepAngle;
-
-    public float getRectangleOffset() {
-        return RectangleOffset;
-    }
 
     Arc(PolarClockWallpaperEngine wallpaperEngine, int radius, @ColorInt int arcColor){
         polarClockWallpaperEngine = wallpaperEngine;
@@ -73,6 +68,26 @@ public abstract class Arc {
         @ColorInt int textColor = GetTextColor(arcColor);
         textPaint.setColor(textColor);
         textPaint.setTextSize(30);
+    }
+
+    public float getRectangleOffset() {
+        return RectangleOffset;
+    }
+
+    public float getCurrentSweepAngle() {
+        return currentSweepAngle;
+    }
+
+    public void setCurrentSweepAngle(float currentSweepAngle) {
+        this.currentSweepAngle = currentSweepAngle;
+    }
+
+    public float getNewSweepAngle() {
+        return newSweepAngle;
+    }
+
+    public void setNewSweepAngle(float newSweepAngle) {
+        this.newSweepAngle = newSweepAngle;
     }
 
     private int GetTextColor(@ColorInt int arcColor) {

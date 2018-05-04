@@ -1,5 +1,6 @@
 package com.theskyegriffin.prettycoolpolarclock;
 
+import android.animation.ValueAnimator;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Handler;
@@ -42,10 +43,9 @@ public class PrettyCoolPolarClockService extends WallpaperService {
             @Override
             public void run() {
                 updateCurrentTime();
-                draw();
+                startAnimations();
             }
         };
-        private Canvas canvas;
 
         PolarClockWallpaperEngine() {
             handler = new Handler();
@@ -99,9 +99,20 @@ public class PrettyCoolPolarClockService extends WallpaperService {
             }
         }
 
+        private void startAnimations() {
+            ArcAnimationSet animationSet = new ArcAnimationSet(this);
+
+            for (Arc arc : arcs) {
+                ValueAnimator animator = ValueAnimator.ofFloat(arc.getCurrentSweepAngle(), arc.getNewSweepAngle());
+                animationSet.add(animator, arc);
+            }
+
+            animationSet.start();
+        }
+
         public void draw() {
             SurfaceHolder surfaceHolder = getSurfaceHolder();
-            canvas = null;
+            Canvas canvas = null;
 
             try {
                 canvas = surfaceHolder.lockCanvas();
