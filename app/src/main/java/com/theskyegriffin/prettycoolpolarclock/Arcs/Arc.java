@@ -31,6 +31,8 @@ public abstract class Arc {
     final RectF rect;
     float currentSweepAngle;
     float newSweepAngle;
+    char[] text;
+    int textLength;
 
     public ArcTypes arcType;
 
@@ -95,20 +97,25 @@ public abstract class Arc {
         return textPaint.breakText(text, 0, text.length, textPathLength, null);
     }
 
-    void resetTextPath() {
+    void CalculateArcParameters(int viewHeightMidpoint, int viewWidthMidpoint) {
+        setCanvasRectangle(viewHeightMidpoint, viewWidthMidpoint);
+        resetTextPath();
+    }
+
+    private void resetTextPath() {
         textPath.reset();
         textPath.arcTo(rect, ArcStartingAngle, currentSweepAngle);
     }
 
-    public abstract void updateCurrentTime(Calendar currentDateTime);
-
-    public abstract void draw(Canvas canvas, int viewHeightMidpoint, int viewWidthMidpoint);
-
-    void setCanvasRectangle(int viewHeightMidpoint, int viewWidthMidpoint) {
+    private void setCanvasRectangle(int viewHeightMidpoint, int viewWidthMidpoint) {
         int startLeftPoint = viewWidthMidpoint - radius;
         int startTopPoint = viewHeightMidpoint - radius;
         int startRightPoint = viewWidthMidpoint + radius;
         int startBottomPoint = viewHeightMidpoint + radius;
         rect.set(startLeftPoint + RectangleOffset, startTopPoint + RectangleOffset, startRightPoint - RectangleOffset, startBottomPoint - RectangleOffset);
     }
+
+    public abstract void updateCurrentTime(Calendar currentDateTime);
+
+    public abstract void draw(Canvas canvas, int viewHeightMidpoint, int viewWidthMidpoint);
 }

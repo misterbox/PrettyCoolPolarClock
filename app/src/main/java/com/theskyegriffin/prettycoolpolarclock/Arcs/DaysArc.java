@@ -26,10 +26,11 @@ public class DaysArc extends Arc {
 
     @Override
     public void draw(Canvas canvas, int viewHeightMidpoint, int viewWidthMidpoint) {
-        setCanvasRectangle(viewHeightMidpoint, viewWidthMidpoint);
-        resetTextPath();
-        char[] text = (currentDate + " DAYS").toCharArray();
-        int textLength = getTextPathLength(text);
+        if (currentSweepAngle != newSweepAngle) {
+            CalculateArcParameters(viewHeightMidpoint, viewWidthMidpoint);
+            text = (currentDate + " DAYS").toCharArray();
+            textLength = getTextPathLength(text);
+        }
         canvas.drawArc(rect, ArcStartingAngle, currentSweepAngle, false, arcPaint);
         canvas.drawTextOnPath(text, 0, textLength, textPath, 0, 12, textPaint);
     }

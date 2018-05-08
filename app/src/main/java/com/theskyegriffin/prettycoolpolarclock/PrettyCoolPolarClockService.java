@@ -44,6 +44,7 @@ public class PrettyCoolPolarClockService extends WallpaperService {
             public void run() {
                 updateCurrentTime();
                 startAnimations();
+                handler.postDelayed(polarClockRunner, 1000);
             }
         };
 
@@ -139,11 +140,11 @@ public class PrettyCoolPolarClockService extends WallpaperService {
                 surfaceHolder.unlockCanvasAndPost(canvas);
             }
 
-            handler.removeCallbacks(polarClockRunner);
-
-            if (isVisible) {
-                handler.postDelayed(polarClockRunner, 1000);
-            }
+//            handler.removeCallbacks(polarClockRunner);
+//
+//            if (isVisible) {
+//                handler.postDelayed(polarClockRunner, 1000);
+//            }
         }
     }
 }
