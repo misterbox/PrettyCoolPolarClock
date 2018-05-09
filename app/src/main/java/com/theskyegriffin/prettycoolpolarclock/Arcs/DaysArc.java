@@ -18,20 +18,24 @@ public class DaysArc extends Arc {
 
     @Override
     public void updateCurrentTime(Calendar currentDateTime) {
-        currentDate = currentDateTime.getTime().getDate();
-        int daysInMonth = currentDateTime.getActualMaximum(Calendar.DAY_OF_MONTH);
-        float monthPercentComplete = (float) currentDate / daysInMonth;
-        newSweepAngle = monthPercentComplete * MaxArcSweepAngle;
+        int updatedDate = currentDateTime.getTime().getDate();
+
+        if (updatedDate != currentDate) {
+            currentDate = updatedDate;
+            int daysInMonth = currentDateTime.getActualMaximum(Calendar.DAY_OF_MONTH);
+            float monthPercentComplete = (float) currentDate / daysInMonth;
+            newSweepAngle = monthPercentComplete * MaxArcSweepAngle;
+            arcText = (currentDate + " DAYS").toCharArray();
+        }
     }
 
     @Override
     public void draw(Canvas canvas, int viewHeightMidpoint, int viewWidthMidpoint) {
         if (currentSweepAngle != newSweepAngle) {
             CalculateArcParameters(viewHeightMidpoint, viewWidthMidpoint);
-            text = (currentDate + " DAYS").toCharArray();
-            textLength = getTextPathLength(text);
+            textLength = getTextPathLength(arcText);
         }
         canvas.drawArc(rect, ArcStartingAngle, currentSweepAngle, false, arcPaint);
-        canvas.drawTextOnPath(text, 0, textLength, textPath, 0, 12, textPaint);
+        canvas.drawTextOnPath(arcText, 0, textLength, textPath, 0, 12, textPaint);
     }
 }

@@ -17,19 +17,23 @@ public class MinutesArc extends Arc {
 
     @Override
     public void updateCurrentTime(Calendar currentDateTime) {
-        currentMinute = currentDateTime.getTime().getMinutes();
-        float hourPercentComplete = (float) currentMinute / 60;
-        newSweepAngle = hourPercentComplete * MaxArcSweepAngle;
+        int updatedMinute = currentDateTime.getTime().getMinutes();
+
+        if (updatedMinute != currentMinute) {
+            currentMinute = updatedMinute;
+            float hourPercentComplete = (float) currentMinute / 60;
+            newSweepAngle = hourPercentComplete * MaxArcSweepAngle;
+            arcText = (currentMinute + " MINUTES").toCharArray();
+        }
     }
 
     @Override
     public void draw(Canvas canvas, int viewHeightMidpoint, int viewWidthMidpoint) {
         if (currentSweepAngle != newSweepAngle) {
             CalculateArcParameters(viewHeightMidpoint, viewWidthMidpoint);
-            text = (currentMinute + " MINUTES").toCharArray();
-            textLength = getTextPathLength(text);
+            textLength = getTextPathLength(arcText);
         }
         canvas.drawArc(rect, ArcStartingAngle, currentSweepAngle, false, arcPaint);
-        canvas.drawTextOnPath(text, 0, textLength, textPath, 0, 12, textPaint);
+        canvas.drawTextOnPath(arcText, 0, textLength, textPath, 0, 12, textPaint);
     }
 }

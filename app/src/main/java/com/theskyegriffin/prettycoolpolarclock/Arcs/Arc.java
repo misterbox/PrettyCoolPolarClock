@@ -31,7 +31,7 @@ public abstract class Arc {
     final RectF rect;
     float currentSweepAngle;
     float newSweepAngle;
-    char[] text;
+    char[] arcText;
     int textLength;
 
     public ArcTypes arcType;
@@ -91,12 +91,6 @@ public abstract class Arc {
         return ColorAnalyzer.isColorBright(arcColor) ? Color.BLACK : Color.WHITE;
     }
 
-    int getTextPathLength(char[] text) {
-        PathMeasure pathMeasure = new PathMeasure(textPath, false);
-        float textPathLength = pathMeasure.getLength();
-        return textPaint.breakText(text, 0, text.length, textPathLength, null);
-    }
-
     void CalculateArcParameters(int viewHeightMidpoint, int viewWidthMidpoint) {
         setCanvasRectangle(viewHeightMidpoint, viewWidthMidpoint);
         resetTextPath();
@@ -105,6 +99,12 @@ public abstract class Arc {
     private void resetTextPath() {
         textPath.reset();
         textPath.arcTo(rect, ArcStartingAngle, currentSweepAngle);
+    }
+
+    int getTextPathLength(char[] text) {
+        PathMeasure pathMeasure = new PathMeasure(textPath, false);
+        float textPathLength = pathMeasure.getLength();
+        return textPaint.breakText(text, 0, text.length, textPathLength, null);
     }
 
     private void setCanvasRectangle(int viewHeightMidpoint, int viewWidthMidpoint) {

@@ -20,17 +20,17 @@ public class SecondsArc extends Arc {
         currentSecond = currentDateTime.getTime().getSeconds();
         float minutePercentComplete = (float) currentSecond / 60;
         newSweepAngle = minutePercentComplete * MaxArcSweepAngle;
+        arcText = (currentSecond + " SECONDS").toCharArray();
     }
 
     @Override
     public void draw(Canvas canvas, int viewHeightMidpoint, int viewWidthMidpoint) {
         if (currentSweepAngle != newSweepAngle) {
             CalculateArcParameters(viewHeightMidpoint, viewWidthMidpoint);
-            text = (currentSecond + " SECONDS").toCharArray();
-            textLength = getTextPathLength(text);
+            textLength = getTextPathLength(arcText);
         }
         canvas.drawArc(rect, ArcStartingAngle, currentSweepAngle, false, arcPaint);
-        canvas.drawTextOnPath(text, 0, textLength, textPath, 0, 12, textPaint);
+        canvas.drawTextOnPath(arcText, 0, textLength, textPath, 0, 12, textPaint);
     }
 
 }
