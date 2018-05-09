@@ -97,7 +97,7 @@ public abstract class Arc {
     }
 
     private void resetTextPath() {
-        textPath.reset();
+        textPath.rewind();
         textPath.arcTo(rect, ArcStartingAngle, currentSweepAngle);
     }
 

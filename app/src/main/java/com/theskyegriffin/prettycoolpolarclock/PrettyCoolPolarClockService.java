@@ -108,7 +108,7 @@ public class PrettyCoolPolarClockService extends WallpaperService {
                 float newSweepAngle = arc.getNewSweepAngle();
 
                 if (currentSweepAngle != newSweepAngle) {
-                    ValueAnimator animator = ValueAnimator.ofFloat(arc.getCurrentSweepAngle(), arc.getNewSweepAngle());
+                    ValueAnimator animator = ValueAnimator.ofFloat(arc.getCurrentSweepAngle(), arc.getNewSweepAngle()).setDuration(500);
                     animationSet.add(animator, arc);
                 }
             }
@@ -139,12 +139,6 @@ public class PrettyCoolPolarClockService extends WallpaperService {
             finally {
                 surfaceHolder.unlockCanvasAndPost(canvas);
             }
-
-//            handler.removeCallbacks(polarClockRunner);
-//
-//            if (isVisible) {
-//                handler.postDelayed(polarClockRunner, 1000);
-//            }
         }
     }
 }

@@ -32,5 +32,4 @@ public class SecondsArc extends Arc {
         canvas.drawArc(rect, ArcStartingAngle, currentSweepAngle, false, arcPaint);
         canvas.drawTextOnPath(arcText, 0, textLength, textPath, 0, 12, textPaint);
     }
-
 }
