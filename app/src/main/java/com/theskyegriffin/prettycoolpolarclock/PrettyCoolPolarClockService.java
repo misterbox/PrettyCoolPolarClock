@@ -122,13 +122,16 @@ public class PrettyCoolPolarClockService extends WallpaperService {
 
             try {
                 canvas = surfaceHolder.lockCanvas();
-                canvas.drawColor(Color.BLACK);
 
-                int heightMidpoint = height / 2;
-                int widthMidpoint = width / 2;
+                if (canvas != null) {
+                    canvas.drawColor(Color.BLACK);
 
-                for (Arc arc : arcs) {
-                    arc.draw(canvas, heightMidpoint, widthMidpoint);
+                    int heightMidpoint = height / 2;
+                    int widthMidpoint = width / 2;
+
+                    for (Arc arc : arcs) {
+                        arc.draw(canvas, heightMidpoint, widthMidpoint);
+                    }
                 }
             }
             catch (Exception e) {
