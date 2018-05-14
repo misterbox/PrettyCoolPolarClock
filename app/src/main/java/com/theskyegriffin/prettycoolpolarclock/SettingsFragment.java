@@ -10,6 +10,7 @@ import android.preference.PreferenceFragment;
 import android.util.Log;
 
 public class SettingsFragment extends PreferenceFragment {
+
     public SettingsFragment(){}
 
     @Override
@@ -18,7 +19,7 @@ public class SettingsFragment extends PreferenceFragment {
 
         addPreferencesFromResource(R.xml.prefs);
 
-        Preference button = findPreference(getString(R.string.button_set_wallpaper));
+        Preference button = findPreference(PolarClockSettingsActivity.KEY_PREF_SET_WALLPAPER_BUTTON);
         button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {

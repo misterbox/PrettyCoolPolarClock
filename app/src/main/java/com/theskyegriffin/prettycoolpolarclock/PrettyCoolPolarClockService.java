@@ -1,9 +1,11 @@
 package com.theskyegriffin.prettycoolpolarclock;
 
 import android.animation.ValueAnimator;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.service.wallpaper.WallpaperService;
 import android.util.Log;
 import android.view.SurfaceHolder;
@@ -25,7 +27,7 @@ public class PrettyCoolPolarClockService extends WallpaperService {
         return new PolarClockWallpaperEngine();
     }
 
-    public class PolarClockWallpaperEngine extends Engine {
+    private class PolarClockWallpaperEngine extends Engine {
         private final Handler handler;
         private ArrayList<Arc> arcs;
         private int width;
@@ -50,7 +52,13 @@ public class PrettyCoolPolarClockService extends WallpaperService {
 
         PolarClockWallpaperEngine() {
             handler = new Handler();
+            ReadSettings();
             InitializeDependencies();
+        }
+
+        private void ReadSettings() {
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(PrettyCoolPolarClockService.this);
+            boolean showArcText = sharedPreferences.getBoolean(PolarClockSettingsActivity.KEY_PREF_SHOW_ARC_TEXT, true);
         }
 
         private void InitializeDependencies() {

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <Preference android:title="Acts like a button"
-        android:key="@string/button_set_wallpaper"
-        android:summary="This is a cool button" />
+    <Preference android:title="@string/button_set_wallpaper"
+        android:key="pref_setWallpaperButton" />
     <CheckBoxPreference
-        android:key="touch"
-        android:title="Enable Touch"/>
+        android:key="pref_showArcText"
+        android:title="@string/pref_showArcText"
+        android:defaultValue="true" />
     <EditTextPreference
         android:key="numberOfCircles"
         android:title="Number of Circles"/>
