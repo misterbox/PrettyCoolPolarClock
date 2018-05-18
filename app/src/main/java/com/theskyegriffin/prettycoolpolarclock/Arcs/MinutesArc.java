@@ -31,7 +31,7 @@ public class MinutesArc extends Arc {
     public void draw(Canvas canvas, int viewHeightMidpoint, int viewWidthMidpoint) {
         if (currentSweepAngle != newSweepAngle) {
             CalculateArcParameters(viewHeightMidpoint, viewWidthMidpoint);
-            arcText.UpdateLength(rect, ArcStartingAngle, currentSweepAngle);
+            arcText.UpdateLength();
         }
         canvas.drawArc(rect, ArcStartingAngle, currentSweepAngle, false, arcPaint);
         arcText.Draw(canvas);

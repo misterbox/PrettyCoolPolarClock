@@ -23,7 +23,6 @@ public class SettingsFragment extends PreferenceFragment {
         button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                Log.d("SETTINGS", "Click");
                 Context context = getActivity();
                 Intent intent = new Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER);
                 intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT,

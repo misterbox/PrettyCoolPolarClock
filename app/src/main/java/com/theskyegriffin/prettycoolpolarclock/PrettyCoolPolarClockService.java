@@ -21,10 +21,24 @@ import com.theskyegriffin.prettycoolpolarclock.Arcs.SecondsArc;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class PrettyCoolPolarClockService extends WallpaperService {
+public class PrettyCoolPolarClockService extends WallpaperService implements SharedPreferences.OnSharedPreferenceChangeListener {
+    boolean showArcText;
+
     @Override
     public Engine onCreateEngine() {
+        ReadSettings();
         return new PolarClockWallpaperEngine();
+    }
+
+    private void ReadSettings() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(PrettyCoolPolarClockService.this);
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+        showArcText = sharedPreferences.getBoolean(PolarClockSettingsActivity.KEY_PREF_SHOW_ARC_TEXT, true);
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        Log.d("WALLPAPER SERVICE", "preference changed");
     }
 
     class PolarClockWallpaperEngine extends Engine {
@@ -49,17 +63,11 @@ public class PrettyCoolPolarClockService extends WallpaperService {
                 handler.postDelayed(polarClockRunner, 1000);
             }
         };
-        boolean showArcText;
+        private ArcAnimationSet animationSet;
 
         PolarClockWallpaperEngine() {
             handler = new Handler();
-            ReadSettings();
             InitializeDependencies();
-        }
-
-        private void ReadSettings() {
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(PrettyCoolPolarClockService.this);
-            showArcText = sharedPreferences.getBoolean(PolarClockSettingsActivity.KEY_PREF_SHOW_ARC_TEXT, true);
         }
 
         private void InitializeDependencies() {
@@ -90,6 +98,7 @@ public class PrettyCoolPolarClockService extends WallpaperService {
             Log.d("ENGINE", "onSurfaceDestroyed");
             super.onSurfaceDestroyed(surfaceHolder);
             this.isVisible = false;
+            animationSet.stop();
             handler.removeCallbacks(polarClockRunner);
         }
 
@@ -110,7 +119,7 @@ public class PrettyCoolPolarClockService extends WallpaperService {
         }
 
         private void startAnimations() {
-            ArcAnimationSet animationSet = new ArcAnimationSet(this);
+            animationSet = new ArcAnimationSet(this);
 
             for (Arc arc : arcs) {
                 float currentSweepAngle = arc.getCurrentSweepAngle();

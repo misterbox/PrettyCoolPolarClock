@@ -7,12 +7,12 @@ public class ColorAnalyzer {
     private static int brightnessThreshold = 123;
 
     public static boolean isColorBright(@ColorInt int color) {
-        float brightnessIndex = GetBrightnessindex(color);
+        float brightnessIndex = getBrightnessIndex(color);
 
         return brightnessIndex > brightnessThreshold;
     }
 
-    private static float GetBrightnessindex(@ColorInt int color) {
+    private static float getBrightnessIndex(@ColorInt int color) {
         int red = Color.red(color);
         int green = Color.green(color);
         int blue = Color.blue(color);
