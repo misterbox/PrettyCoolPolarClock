@@ -27,7 +27,7 @@ public class PrettyCoolPolarClockService extends WallpaperService {
         return new PolarClockWallpaperEngine();
     }
 
-    private class PolarClockWallpaperEngine extends Engine {
+    class PolarClockWallpaperEngine extends Engine {
         private final Handler handler;
         private ArrayList<Arc> arcs;
         private int width;
@@ -49,6 +49,7 @@ public class PrettyCoolPolarClockService extends WallpaperService {
                 handler.postDelayed(polarClockRunner, 1000);
             }
         };
+        boolean showArcText;
 
         PolarClockWallpaperEngine() {
             handler = new Handler();
@@ -58,17 +59,17 @@ public class PrettyCoolPolarClockService extends WallpaperService {
 
         private void ReadSettings() {
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(PrettyCoolPolarClockService.this);
-            boolean showArcText = sharedPreferences.getBoolean(PolarClockSettingsActivity.KEY_PREF_SHOW_ARC_TEXT, true);
+            showArcText = sharedPreferences.getBoolean(PolarClockSettingsActivity.KEY_PREF_SHOW_ARC_TEXT, true);
         }
 
         private void InitializeDependencies() {
             arcs = new ArrayList<Arc>();
-            arcs.add(new SecondsArc(radius, secondsArcColor));
-            arcs.add(new MinutesArc(radius, minutesArcColor));
-            arcs.add(new HoursArc(radius, hoursArcColor));
-            arcs.add(new DaysOfWeekArc(radius, daysOfWeekArcColor));
-            arcs.add(new DaysArc(radius, daysArcColor));
-            arcs.add(new MonthsArc(radius, monthsArcColor));
+            arcs.add(new SecondsArc(radius, secondsArcColor, showArcText));
+            arcs.add(new MinutesArc(radius, minutesArcColor, showArcText));
+            arcs.add(new HoursArc(radius, hoursArcColor, showArcText));
+            arcs.add(new DaysOfWeekArc(radius, daysOfWeekArcColor, showArcText));
+            arcs.add(new DaysArc(radius, daysArcColor, showArcText));
+            arcs.add(new MonthsArc(radius, monthsArcColor, showArcText));
         }
 
         @Override

@@ -20,7 +20,7 @@ public abstract class Arc {
     private final Paint.Style ArcStyle = Paint.Style.STROKE;
     private final Paint.Cap StrokeCap = Paint.Cap.ROUND;
     float RectangleOffset = 0;
-    float ArcOffsetMultiple = 0;
+    float ArcOffsetFactor = 0;
     final float ArcStartingAngle = 270;
     final float MaxArcSweepAngle = 359.9f;
     static float ArcOffsetConstant;
@@ -31,12 +31,13 @@ public abstract class Arc {
     final RectF rect;
     float currentSweepAngle;
     float newSweepAngle;
-    char[] arcText;
+//    char[] arcText;
     int textLength;
 
     public ArcTypes arcType;
+    ArcText arcText;
 
-    Arc(int radius, @ColorInt int arcColor){
+    Arc(int radius, @ColorInt int arcColor, boolean showArcText) {
         this.radius = radius;
         float arcOffsetFactor = (float) 1 / 8;
         ArcOffsetConstant = radius * arcOffsetFactor;
@@ -45,9 +46,10 @@ public abstract class Arc {
         textPaint = new Paint();
         textPath = new Path();
         rect = new RectF(0, 0, 0, 0);
+        arcText = new ArcText(arcColor, showArcText);
 
         InitializeArcPaint(arcColor);
-        InitializeTextPaint(arcColor);
+//        InitializeTextPaint(arcColor);
     }
 
     private void InitializeArcPaint(int arcColor) {
@@ -58,14 +60,14 @@ public abstract class Arc {
         arcPaint.setColor(arcColor);
     }
 
-    private void InitializeTextPaint(@ColorInt int arcColor) {
-        textPaint.setTextAlign(Paint.Align.RIGHT);
-        textPaint.setStyle(Paint.Style.FILL);
-        textPaint.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-        @ColorInt int textColor = GetTextColor(arcColor);
-        textPaint.setColor(textColor);
-        textPaint.setTextSize(30);
-    }
+//    private void InitializeTextPaint(@ColorInt int arcColor) {
+//        textPaint.setTextAlign(Paint.Align.RIGHT);
+//        textPaint.setStyle(Paint.Style.FILL);
+//        textPaint.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+//        @ColorInt int textColor = GetTextColor(arcColor);
+//        textPaint.setColor(textColor);
+//        textPaint.setTextSize(30);
+//    }
 
     public float getRectangleOffset() {
         return RectangleOffset;
@@ -87,25 +89,25 @@ public abstract class Arc {
         this.newSweepAngle = newSweepAngle;
     }
 
-    private int GetTextColor(@ColorInt int arcColor) {
-        return ColorAnalyzer.isColorBright(arcColor) ? Color.BLACK : Color.WHITE;
-    }
+//    private int GetTextColor(@ColorInt int arcColor) {
+//        return ColorAnalyzer.isColorBright(arcColor) ? Color.BLACK : Color.WHITE;
+//    }
 
     void CalculateArcParameters(int viewHeightMidpoint, int viewWidthMidpoint) {
         setCanvasRectangle(viewHeightMidpoint, viewWidthMidpoint);
-        resetTextPath();
+//        resetTextPath();
     }
 
-    private void resetTextPath() {
-        textPath.rewind();
-        textPath.arcTo(rect, ArcStartingAngle, currentSweepAngle);
-    }
+//    private void resetTextPath() {
+//        textPath.rewind();
+//        textPath.arcTo(rect, ArcStartingAngle, currentSweepAngle);
+//    }
 
-    int getTextPathLength(char[] text) {
-        PathMeasure pathMeasure = new PathMeasure(textPath, false);
-        float textPathLength = pathMeasure.getLength();
-        return textPaint.breakText(text, 0, text.length, textPathLength, null);
-    }
+//    int getTextPathLength(char[] text) {
+//        PathMeasure pathMeasure = new PathMeasure(textPath, false);
+//        float textPathLength = pathMeasure.getLength();
+//        return textPaint.breakText(text, 0, text.length, textPathLength, null);
+//    }
 
     private void setCanvasRectangle(int viewHeightMidpoint, int viewWidthMidpoint) {
         int startLeftPoint = viewWidthMidpoint - radius;

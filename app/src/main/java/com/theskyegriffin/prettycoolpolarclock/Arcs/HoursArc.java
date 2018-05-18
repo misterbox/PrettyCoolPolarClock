@@ -8,10 +8,10 @@ import java.util.Calendar;
 public class HoursArc extends Arc {
     private int currentHour;
 
-    public HoursArc(int radius, @ColorInt int arcColor) {
-        super(radius, arcColor);
-        ArcOffsetMultiple = 3;
-        RectangleOffset = ArcOffsetMultiple * ArcOffsetConstant;
+    public HoursArc(int radius, @ColorInt int arcColor, boolean showArcText) {
+        super(radius, arcColor, showArcText);
+        ArcOffsetFactor = 3;
+        RectangleOffset = ArcOffsetFactor * ArcOffsetConstant;
         arcType = ArcTypes.Hours;
     }
 
@@ -23,7 +23,8 @@ public class HoursArc extends Arc {
             currentHour = updatedHour;
             float dayPercentComplete = (float) currentHour / 24;
             newSweepAngle = dayPercentComplete * MaxArcSweepAngle;
-            arcText = (currentHour + " HOURS").toCharArray();
+//            arcText = (currentHour + " HOURS").toCharArray();
+            arcText.UpdateText(currentHour + " HOURS");
         }
     }
 
@@ -31,10 +32,9 @@ public class HoursArc extends Arc {
     public void draw(Canvas canvas, int viewHeightMidpoint, int viewWidthMidpoint) {
         if (currentSweepAngle != newSweepAngle) {
             CalculateArcParameters(viewHeightMidpoint, viewWidthMidpoint);
-            textLength = getTextPathLength(arcText);
+            arcText.UpdateLength(rect, ArcStartingAngle, currentSweepAngle);
         }
         canvas.drawArc(rect, ArcStartingAngle, currentSweepAngle, false, arcPaint);
-        canvas.drawTextOnPath(arcText, 0, textLength, textPath, 0, 12, textPaint);
+        arcText.Draw(canvas);
     }
-
 }
