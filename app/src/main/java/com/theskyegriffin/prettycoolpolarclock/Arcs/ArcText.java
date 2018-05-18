@@ -38,17 +38,19 @@ public class ArcText {
     }
 
     public void UpdateText(String text) {
-        if (this.visible) {
+        if (visible) {
             this.text = text.toCharArray();
         }
     }
 
     public void UpdateLength(RectF rect, float startAngle, float sweepAngle) {
-        path.rewind();
-        path.arcTo(rect, startAngle, sweepAngle);
-        PathMeasure pathMeasure = new PathMeasure(path, false);
-        float length = pathMeasure.getLength();
-        pathLength =  paint.breakText(text, 0, text.length, length, null);
+        if (visible) {
+            path.rewind();
+            path.arcTo(rect, startAngle, sweepAngle);
+            PathMeasure pathMeasure = new PathMeasure(path, false);
+            float length = pathMeasure.getLength();
+            pathLength =  paint.breakText(text, 0, text.length, length, null);
+        }
     }
 
     public void Draw(Canvas canvas) {

@@ -6,7 +6,4 @@
         android:key="pref_showArcText"
         android:title="@string/pref_showArcText"
         android:defaultValue="true" />
-    <EditTextPreference
-        android:key="numberOfCircles"
-        android:title="Number of Circles"/>
 </PreferenceScreen>

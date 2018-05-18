@@ -20,7 +20,6 @@ public class SecondsArc extends Arc {
         currentSecond = currentDateTime.getTime().getSeconds();
         float minutePercentComplete = (float) currentSecond / 60;
         newSweepAngle = minutePercentComplete * MaxArcSweepAngle;
-//        arcText = (currentSecond + " SECONDS").toCharArray();
         arcText.UpdateText(currentSecond + " SECONDS");
     }
 
@@ -31,7 +30,6 @@ public class SecondsArc extends Arc {
             arcText.UpdateLength(rect, ArcStartingAngle, currentSweepAngle);
         }
         canvas.drawArc(rect, ArcStartingAngle, currentSweepAngle, false, arcPaint);
-//        canvas.drawTextOnPath(arcText, 0, textLength, textPath, 0, 12, textPaint);
         arcText.Draw(canvas);
     }
 }

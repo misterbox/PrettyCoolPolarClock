@@ -23,7 +23,6 @@ public class MinutesArc extends Arc {
             currentMinute = updatedMinute;
             float hourPercentComplete = (float) currentMinute / 60;
             newSweepAngle = hourPercentComplete * MaxArcSweepAngle;
-//            arcText = (currentMinute + " MINUTES").toCharArray();
             arcText.UpdateText(currentMinute + " MINUTES");
         }
     }
