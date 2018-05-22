@@ -41,6 +41,12 @@ public class PrettyCoolPolarClockService extends WallpaperService implements Sha
         Log.d("WALLPAPER SERVICE", "preference changed");
     }
 
+    @Override
+    public void onDestroy() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(PrettyCoolPolarClockService.this);
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
+    }
+
     class PolarClockWallpaperEngine extends Engine {
         private final Handler handler;
         private ArrayList<Arc> arcs;
@@ -54,6 +60,7 @@ public class PrettyCoolPolarClockService extends WallpaperService implements Sha
         private final int minutesArcColor = Color.parseColor("#A3C460");
         private final int secondsArcColor = Color.parseColor("#D26767");
         private boolean isVisible = false;
+        private ArcAnimationSet animationSet;
 
         private final Runnable polarClockRunner = new Runnable() {
             @Override
@@ -63,7 +70,6 @@ public class PrettyCoolPolarClockService extends WallpaperService implements Sha
                 handler.postDelayed(polarClockRunner, 1000);
             }
         };
-        private ArcAnimationSet animationSet;
 
         PolarClockWallpaperEngine() {
             handler = new Handler();
@@ -85,7 +91,8 @@ public class PrettyCoolPolarClockService extends WallpaperService implements Sha
             Log.d("ENGINE", "onVisibilityChanged: " + isVisible);
             this.isVisible = isVisible;
 
-            if (isVisible) {
+            if (this.isVisible) {
+                onSettingsChanged();
                 handler.postDelayed(polarClockRunner, 1000);
             }
             else {
@@ -105,9 +112,17 @@ public class PrettyCoolPolarClockService extends WallpaperService implements Sha
         @Override
         public void onSurfaceChanged(SurfaceHolder surfaceHolder, int format, int width, int height) {
             Log.d("ENGINE", "onSurfaceChanged, width: " + width + " height: " + height);
+            super.onSurfaceChanged(surfaceHolder, format, width, height);
             this.width = width;
             this.height = height;
-            super.onSurfaceChanged(surfaceHolder, format, width, height);
+            onSettingsChanged();
+        }
+
+        public void onSettingsChanged() {
+            Log.d("ENGINE", "showArcText: " + showArcText);
+            for (Arc arc : arcs) {
+                arc.setArcSettings(showArcText);
+            }
         }
 
         private void updateCurrentTime() {

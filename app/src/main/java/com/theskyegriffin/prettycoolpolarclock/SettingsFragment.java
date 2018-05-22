@@ -27,6 +27,7 @@ public class SettingsFragment extends PreferenceFragment {
                 Intent intent = new Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER);
                 intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT,
                         new ComponentName(context, PrettyCoolPolarClockService.class));
+                intent.putExtra("SET_LOCKSCREEN_WALLPAPER", true);
                 startActivity(intent);
                 return true;
             }

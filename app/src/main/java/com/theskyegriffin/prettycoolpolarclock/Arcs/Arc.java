@@ -77,6 +77,10 @@ public abstract class Arc {
         this.newSweepAngle = newSweepAngle;
     }
 
+    public void setArcSettings(boolean arcTextVisible) {
+        arcText.setVisible(arcTextVisible);
+    }
+
     void CalculateArcParameters(int viewHeightMidpoint, int viewWidthMidpoint) {
         setCanvasRectangle(viewHeightMidpoint, viewWidthMidpoint);
     }
@@ -94,7 +98,7 @@ public abstract class Arc {
     public abstract void draw(Canvas canvas, int viewHeightMidpoint, int viewWidthMidpoint);
 
     class ArcText {
-        private final boolean visible;
+        private boolean visible;
         private char[] text;
         private Paint paint;
         private Path path;
@@ -117,6 +121,10 @@ public abstract class Arc {
 
         private int GetTextColor(@ColorInt int arcColor) {
             return ColorAnalyzer.isColorBright(arcColor) ? Color.BLACK : Color.WHITE;
+        }
+
+        void setVisible(boolean visible) {
+            this.visible = visible;
         }
 
         void UpdateText(String text) {
