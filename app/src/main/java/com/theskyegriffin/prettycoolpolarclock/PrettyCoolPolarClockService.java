@@ -23,6 +23,7 @@ import java.util.Calendar;
 
 public class PrettyCoolPolarClockService extends WallpaperService implements SharedPreferences.OnSharedPreferenceChangeListener {
     boolean showArcText;
+    static boolean settingsChanged = false;
 
     @Override
     public Engine onCreateEngine() {
@@ -34,11 +35,13 @@ public class PrettyCoolPolarClockService extends WallpaperService implements Sha
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(PrettyCoolPolarClockService.this);
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
         showArcText = sharedPreferences.getBoolean(PolarClockSettingsActivity.KEY_PREF_SHOW_ARC_TEXT, true);
+        settingsChanged = false;
     }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         Log.d("WALLPAPER SERVICE", "preference changed");
+        settingsChanged = true;
     }
 
     @Override
@@ -111,15 +114,20 @@ public class PrettyCoolPolarClockService extends WallpaperService implements Sha
 
         @Override
         public void onSurfaceChanged(SurfaceHolder surfaceHolder, int format, int width, int height) {
-            Log.d("ENGINE", "onSurfaceChanged, width: " + width + " height: " + height);
+//            Log.d("ENGINE", "onSurfaceChanged, width: " + width + " height: " + height);
             super.onSurfaceChanged(surfaceHolder, format, width, height);
             this.width = width;
             this.height = height;
-            onSettingsChanged();
+
+            if (settingsChanged) {
+                onSettingsChanged();
+            }
         }
 
-        public void onSettingsChanged() {
+        void onSettingsChanged() {
             Log.d("ENGINE", "showArcText: " + showArcText);
+            ReadSettings();
+
             for (Arc arc : arcs) {
                 arc.setArcSettings(showArcText);
             }
@@ -173,7 +181,9 @@ public class PrettyCoolPolarClockService extends WallpaperService implements Sha
                         "Stack trace: " + e.getStackTrace());
             }
             finally {
-                surfaceHolder.unlockCanvasAndPost(canvas);
+                if (canvas != null) {
+                    surfaceHolder.unlockCanvasAndPost(canvas);
+                }
             }
         }
     }

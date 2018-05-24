@@ -109,14 +109,12 @@ public abstract class Arc {
             paint = new Paint();
             path = new Path();
 
-            if (this.visible) {
-                paint.setTextAlign(Paint.Align.RIGHT);
-                paint.setStyle(Paint.Style.FILL);
-                paint.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-                @ColorInt int textColor = GetTextColor(arcColor);
-                paint.setColor(textColor);
-                paint.setTextSize(30);
-            }
+            paint.setTextAlign(Paint.Align.RIGHT);
+            paint.setStyle(Paint.Style.FILL);
+            paint.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+            @ColorInt int textColor = GetTextColor(arcColor);
+            paint.setColor(textColor);
+            paint.setTextSize(30);
         }
 
         private int GetTextColor(@ColorInt int arcColor) {
