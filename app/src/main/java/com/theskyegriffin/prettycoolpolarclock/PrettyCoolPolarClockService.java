@@ -1,6 +1,7 @@
 package com.theskyegriffin.prettycoolpolarclock;
 
 import android.animation.ValueAnimator;
+import android.app.WallpaperColors;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -22,26 +23,26 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class PrettyCoolPolarClockService extends WallpaperService implements SharedPreferences.OnSharedPreferenceChangeListener {
+    private PolarClockWallpaperEngine engine;
     boolean showArcText;
-    static boolean settingsChanged = false;
 
     @Override
     public Engine onCreateEngine() {
         ReadSettings();
-        return new PolarClockWallpaperEngine();
+        engine = new PolarClockWallpaperEngine();
+        return engine;
     }
 
     private void ReadSettings() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(PrettyCoolPolarClockService.this);
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
         showArcText = sharedPreferences.getBoolean(PolarClockSettingsActivity.KEY_PREF_SHOW_ARC_TEXT, true);
-        settingsChanged = false;
     }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         Log.d("WALLPAPER SERVICE", "preference changed");
-        settingsChanged = true;
+        engine.settingsChanged = true;
     }
 
     @Override
@@ -64,6 +65,7 @@ public class PrettyCoolPolarClockService extends WallpaperService implements Sha
         private final int secondsArcColor = Color.parseColor("#D26767");
         private boolean isVisible = false;
         private ArcAnimationSet animationSet;
+        boolean settingsChanged = false;
 
         private final Runnable polarClockRunner = new Runnable() {
             @Override
@@ -94,8 +96,11 @@ public class PrettyCoolPolarClockService extends WallpaperService implements Sha
             Log.d("ENGINE", "onVisibilityChanged: " + isVisible);
             this.isVisible = isVisible;
 
-            if (this.isVisible) {
+            if (settingsChanged) {
                 onSettingsChanged();
+            }
+
+            if (this.isVisible) {
                 handler.postDelayed(polarClockRunner, 1000);
             }
             else {
@@ -127,6 +132,7 @@ public class PrettyCoolPolarClockService extends WallpaperService implements Sha
         void onSettingsChanged() {
             Log.d("ENGINE", "showArcText: " + showArcText);
             ReadSettings();
+            settingsChanged = false;
 
             for (Arc arc : arcs) {
                 arc.setArcSettings(showArcText);
