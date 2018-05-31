@@ -77,7 +77,7 @@ public abstract class Arc {
         this.newSweepAngle = newSweepAngle;
     }
 
-    public void setArcSettings(boolean arcTextVisible) {
+    public void updateArcSettings(boolean arcTextVisible) {
         arcText.setVisible(arcTextVisible);
     }
 
