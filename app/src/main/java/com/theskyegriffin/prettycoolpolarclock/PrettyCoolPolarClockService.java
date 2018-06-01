@@ -26,11 +26,11 @@ public class PrettyCoolPolarClockService extends WallpaperService {
 
     @Override
     public Engine onCreateEngine() {
-        ReadSettings();
+        readSettings();
         return new PolarClockWallpaperEngine();
     }
 
-    private void ReadSettings() {
+    private void readSettings() {
         Log.d("WALLPAPER SERVICE", "Reading settings");
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(PrettyCoolPolarClockService.this);
         showArcText = sharedPreferences.getBoolean(PolarClockSettingsActivity.KEY_PREF_SHOW_ARC_TEXT, true);
@@ -38,8 +38,6 @@ public class PrettyCoolPolarClockService extends WallpaperService {
 
     @Override
     public void onDestroy() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(PrettyCoolPolarClockService.this);
-        sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
     }
 
     class PolarClockWallpaperEngine extends Engine {
@@ -87,7 +85,8 @@ public class PrettyCoolPolarClockService extends WallpaperService {
             this.isVisible = isVisible;
 
             if (this.isVisible) {
-                ReadSettings();
+                readSettings();
+                onUpdateSettings();
                 handler.postDelayed(polarClockRunner, 1000);
             }
             else {
@@ -110,8 +109,11 @@ public class PrettyCoolPolarClockService extends WallpaperService {
             super.onSurfaceChanged(surfaceHolder, format, width, height);
             this.width = width;
             this.height = height;
-            ReadSettings();
+            readSettings();
+            onUpdateSettings();
+        }
 
+        private void onUpdateSettings() {
             Log.d("ENGINE", "showArcText: " + showArcText);
             for (Arc arc : arcs) {
                 arc.updateArcSettings(showArcText);
