@@ -24,6 +24,15 @@ public class SettingsFragment extends PreferenceFragment {
             @Override
             public boolean onPreferenceClick(Preference preference) {
                 Context context = getActivity();
+                WallpaperManager wallpaperManager = WallpaperManager.getInstance(context);
+
+                try {
+                    wallpaperManager.clear();
+                }
+                catch (Exception e) {
+                    Log.e("PolarClock.Settings", "Error when attempting to clear current wallpaper");
+                }
+
                 Intent intent = new Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER);
                 intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT,
                         new ComponentName(context, PrettyCoolPolarClockService.class));

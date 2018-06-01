@@ -1,12 +1,15 @@
 package com.theskyegriffin.prettycoolpolarclock;
 
 import android.animation.ValueAnimator;
+import android.app.WallpaperColors;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.service.wallpaper.WallpaperService;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.SurfaceHolder;
 
@@ -81,12 +84,13 @@ public class PrettyCoolPolarClockService extends WallpaperService {
 
         @Override
         public void onVisibilityChanged(boolean isVisible) {
-            Log.d("ENGINE", "onVisibilityChanged: " + isVisible);
+//            Log.d("ENGINE", "onVisibilityChanged: " + isVisible);
             this.isVisible = isVisible;
 
             if (this.isVisible) {
-                readSettings();
-                onUpdateSettings();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+                    super.notifyColorsChanged();
+                }
                 handler.postDelayed(polarClockRunner, 1000);
             }
             else {
@@ -96,11 +100,14 @@ public class PrettyCoolPolarClockService extends WallpaperService {
 
         @Override
         public void onSurfaceDestroyed(SurfaceHolder surfaceHolder) {
-            Log.d("ENGINE", "onSurfaceDestroyed");
+//            Log.d("ENGINE", "onSurfaceDestroyed");
             super.onSurfaceDestroyed(surfaceHolder);
             this.isVisible = false;
-            animationSet.stop();
             handler.removeCallbacks(polarClockRunner);
+
+            if (animationSet != null) {
+                animationSet.stop();
+            }
         }
 
         @Override
@@ -109,15 +116,12 @@ public class PrettyCoolPolarClockService extends WallpaperService {
             super.onSurfaceChanged(surfaceHolder, format, width, height);
             this.width = width;
             this.height = height;
-            readSettings();
-            onUpdateSettings();
         }
 
-        private void onUpdateSettings() {
-            Log.d("ENGINE", "showArcText: " + showArcText);
-            for (Arc arc : arcs) {
-                arc.updateArcSettings(showArcText);
-            }
+        @RequiresApi(api = Build.VERSION_CODES.O_MR1)
+        @Override
+        public WallpaperColors onComputeColors() {
+            return new WallpaperColors(Color.valueOf(Color.BLACK), null, null);
         }
 
         private void updateCurrentTime() {
@@ -163,8 +167,8 @@ public class PrettyCoolPolarClockService extends WallpaperService {
                 }
             }
             catch (Exception e) {
-                Log.d("ENGINE", "Error getting canvas from surface holder on draw\n" +
-                        "Message: " + e.getMessage() + "\n" +
+                Log.d("ENGINE", "Error getting canvas from surface holder on draw" + System.lineSeparator() +
+                        "Message: " + e.getMessage() + System.lineSeparator() +
                         "Stack trace: " + e.getStackTrace());
             }
             finally {
