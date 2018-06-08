@@ -4,4 +4,6 @@
     <string name="title_activity_polar_clock_preferences">Preferences</string>
     <string name="button_set_wallpaper">Set Wallpaper</string>
     <string name="pref_showArcText">Show Arc Text</string>
+    <string name="pref_showArcTextSummary">Display the current time units on the arcs</string>
+    <string name="pref_arcTextColor">Text Color</string>
 </resources>

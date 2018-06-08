@@ -5,5 +5,13 @@
     <CheckBoxPreference
         android:key="pref_showArcText"
         android:title="@string/pref_showArcText"
+        android:summary="@string/pref_showArcTextSummary"
         android:defaultValue="true" />
+    <ListPreference
+        android:dependency="pref_showArcText"
+        android:key="pref_arcTextColor"
+        android:title="@string/pref_arcTextColor"
+        android:dialogTitle="@string/pref_arcTextColor"
+        android:entries="@array/pref_arcTextColor_entries"
+        android:entryValues="@array/pref_arcTextColor_values" />
 </PreferenceScreen>

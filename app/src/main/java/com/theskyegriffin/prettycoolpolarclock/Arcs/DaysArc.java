@@ -25,7 +25,7 @@ public class DaysArc extends Arc {
             int daysInMonth = currentDateTime.getActualMaximum(Calendar.DAY_OF_MONTH);
             float monthPercentComplete = (float) currentDate / daysInMonth;
             newSweepAngle = monthPercentComplete * MaxArcSweepAngle;
-            arcText.UpdateText(currentDate + " DAYS");
+            arcText.UpdateText("DAY " + currentDate);
         }
     }
 
