@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 
 import com.theskyegriffin.prettycoolpolarclock.Arcs.Arc;
+import com.theskyegriffin.prettycoolpolarclock.Arcs.PolarClockSettings;
 import com.theskyegriffin.prettycoolpolarclock.Arcs.DaysArc;
 import com.theskyegriffin.prettycoolpolarclock.Arcs.DaysOfWeekArc;
 import com.theskyegriffin.prettycoolpolarclock.Arcs.HoursArc;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class PrettyCoolPolarClockService extends WallpaperService {
-    boolean showArcText;
+    PolarClockSettings settings;
 
     @Override
     public Engine onCreateEngine() {
@@ -36,11 +37,9 @@ public class PrettyCoolPolarClockService extends WallpaperService {
     private void readSettings() {
         Log.d("WALLPAPER SERVICE", "Reading settings");
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(PrettyCoolPolarClockService.this);
-        showArcText = sharedPreferences.getBoolean(PolarClockSettingsActivity.KEY_PREF_SHOW_ARC_TEXT, true);
-    }
-
-    @Override
-    public void onDestroy() {
+        boolean showArcText = sharedPreferences.getBoolean(PolarClockSettingsActivity.KEY_PREF_SHOW_ARC_TEXT, true);
+        String arcTextColor = sharedPreferences.getString(PolarClockSettingsActivity.KEY_PREF_ARC_TEXT_COLOR, "white");
+        settings = new PolarClockSettings(showArcText, arcTextColor);
     }
 
     class PolarClockWallpaperEngine extends Engine {
@@ -69,17 +68,17 @@ public class PrettyCoolPolarClockService extends WallpaperService {
 
         PolarClockWallpaperEngine() {
             handler = new Handler();
-            InitializeDependencies();
+            initializeDependencies();
         }
 
-        private void InitializeDependencies() {
+        private void initializeDependencies() {
             arcs = new ArrayList<Arc>();
-            arcs.add(new SecondsArc(radius, secondsArcColor, showArcText));
-            arcs.add(new MinutesArc(radius, minutesArcColor, showArcText));
-            arcs.add(new HoursArc(radius, hoursArcColor, showArcText));
-            arcs.add(new DaysOfWeekArc(radius, daysOfWeekArcColor, showArcText));
-            arcs.add(new DaysArc(radius, daysArcColor, showArcText));
-            arcs.add(new MonthsArc(radius, monthsArcColor, showArcText));
+            arcs.add(new SecondsArc(radius, secondsArcColor, settings));
+            arcs.add(new MinutesArc(radius, minutesArcColor, settings));
+            arcs.add(new HoursArc(radius, hoursArcColor, settings));
+            arcs.add(new DaysOfWeekArc(radius, daysOfWeekArcColor, settings));
+            arcs.add(new DaysArc(radius, daysArcColor, settings));
+            arcs.add(new MonthsArc(radius, monthsArcColor, settings));
         }
 
         @Override

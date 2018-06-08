@@ -1,6 +1,6 @@
 package com.theskyegriffin.prettycoolpolarclock.Arcs;
 
-public enum ArcTypes {
+public enum ArcType {
     Seconds,
     Minutes,
     Hours,

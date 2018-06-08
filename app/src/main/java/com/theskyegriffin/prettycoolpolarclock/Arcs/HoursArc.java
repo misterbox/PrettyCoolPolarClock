@@ -8,11 +8,11 @@ import java.util.Calendar;
 public class HoursArc extends Arc {
     private int currentHour;
 
-    public HoursArc(int radius, @ColorInt int arcColor, boolean showArcText) {
-        super(radius, arcColor, showArcText);
+    public HoursArc(int radius, @ColorInt int arcColor, PolarClockSettings settings) {
+        super(radius, arcColor, settings);
         ArcOffsetFactor = 3;
         RectangleOffset = ArcOffsetFactor * ArcOffsetConstant;
-        arcType = ArcTypes.Hours;
+        arcType = ArcType.Hours;
     }
 
     @Override
@@ -23,7 +23,7 @@ public class HoursArc extends Arc {
             currentHour = updatedHour;
             float dayPercentComplete = (float) currentHour / 24;
             newSweepAngle = dayPercentComplete * MaxArcSweepAngle;
-            arcText.UpdateText(currentHour + " HOURS");
+            arcText.updateText(currentHour + " HOURS");
         }
     }
 
@@ -31,9 +31,9 @@ public class HoursArc extends Arc {
     public void draw(Canvas canvas, int viewHeightMidpoint, int viewWidthMidpoint) {
         if (currentSweepAngle != newSweepAngle) {
             CalculateArcParameters(viewHeightMidpoint, viewWidthMidpoint);
-            arcText.UpdateLength();
+            arcText.updateLength();
         }
         canvas.drawArc(rect, ArcStartingAngle, currentSweepAngle, false, arcPaint);
-        arcText.Draw(canvas);
+        arcText.draw(canvas);
     }
 }

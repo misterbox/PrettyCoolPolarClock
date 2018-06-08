@@ -5,5 +5,5 @@
     <string name="button_set_wallpaper">Set Wallpaper</string>
     <string name="pref_showArcText">Show Arc Text</string>
     <string name="pref_showArcTextSummary">Display the current time units on the arcs</string>
-    <string name="pref_arcTextColor">Text Color</string>
+    <string name="pref_arcTextColor">Arc Text Color</string>
 </resources>

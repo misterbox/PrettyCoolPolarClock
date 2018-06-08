@@ -10,10 +10,10 @@ public class MonthsArc extends Arc {
     private String currentMonthDisplayName;
     private int currentMonth;
 
-    public MonthsArc(int radius, @ColorInt int arcColor, boolean showArcText) {
-        super(radius, arcColor, showArcText);
+    public MonthsArc(int radius, @ColorInt int arcColor, PolarClockSettings settings) {
+        super(radius, arcColor, settings);
 
-        arcType = ArcTypes.Months;
+        arcType = ArcType.Months;
     }
 
     @Override
@@ -26,7 +26,7 @@ public class MonthsArc extends Arc {
             float yearPercentComplete = (float) (currentMonth + 1) / 12;
             newSweepAngle = yearPercentComplete * MaxArcSweepAngle;
             String text = currentMonthDisplayName == null ? "" : currentMonthDisplayName;
-            arcText.UpdateText(text);
+            arcText.updateText(text);
         }
     }
 
@@ -34,9 +34,9 @@ public class MonthsArc extends Arc {
     public void draw(Canvas canvas, int viewHeightMidpoint, int viewWidthMidpoint) {
         if (currentSweepAngle != newSweepAngle) {
             CalculateArcParameters(viewHeightMidpoint, viewWidthMidpoint);
-            arcText.UpdateLength();
+            arcText.updateLength();
         }
         canvas.drawArc(rect, ArcStartingAngle, currentSweepAngle, false, arcPaint);
-        arcText.Draw(canvas);
+        arcText.draw(canvas);
     }
 }

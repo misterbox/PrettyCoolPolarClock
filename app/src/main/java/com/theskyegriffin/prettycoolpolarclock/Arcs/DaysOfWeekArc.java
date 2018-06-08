@@ -10,11 +10,11 @@ public class DaysOfWeekArc extends Arc {
     private String currentDayDisplayName;
     private int currentDay;
 
-    public DaysOfWeekArc(int radius, @ColorInt int arcColor, boolean showArcText) {
-        super(radius, arcColor, showArcText);
+    public DaysOfWeekArc(int radius, @ColorInt int arcColor, PolarClockSettings settings) {
+        super(radius, arcColor, settings);
         ArcOffsetFactor = 2;
         RectangleOffset = ArcOffsetFactor * ArcOffsetConstant;
-        arcType = ArcTypes.DaysOfWeek;
+        arcType = ArcType.DaysOfWeek;
     }
 
     @Override
@@ -27,7 +27,7 @@ public class DaysOfWeekArc extends Arc {
             float weekPercentComplete = (float) (currentDay + 1) / 7;
             newSweepAngle = weekPercentComplete * MaxArcSweepAngle;
             String text = currentDayDisplayName == null ? "" : currentDayDisplayName;
-            arcText.UpdateText(text);
+            arcText.updateText(text);
         }
     }
 
@@ -35,9 +35,9 @@ public class DaysOfWeekArc extends Arc {
     public void draw(Canvas canvas, int viewHeightMidpoint, int viewWidthMidpoint) {
         if (currentSweepAngle != newSweepAngle) {
             CalculateArcParameters(viewHeightMidpoint, viewWidthMidpoint);
-            arcText.UpdateLength();
+            arcText.updateLength();
         }
         canvas.drawArc(rect, ArcStartingAngle, currentSweepAngle, false, arcPaint);
-        arcText.Draw(canvas);
+        arcText.draw(canvas);
     }
 }

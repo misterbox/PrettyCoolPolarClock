@@ -25,17 +25,17 @@ public abstract class Arc {
     final float MaxArcSweepAngle = 359.9f;
     static float ArcOffsetConstant;
 
+    private PolarClockSettings settings;
     final Paint arcPaint;
     final Paint textPaint;
     final Path textPath;
     final RectF rect;
     float currentSweepAngle;
     float newSweepAngle;
-
-    public ArcTypes arcType;
     ArcText arcText;
+    public ArcType arcType;
 
-    Arc(int radius, @ColorInt int arcColor, boolean showArcText) {
+    Arc(int radius, @ColorInt int arcColor, PolarClockSettings settings) {
         this.radius = radius;
         float arcOffsetFactor = (float) 1 / 8;
         ArcOffsetConstant = radius * arcOffsetFactor;
@@ -44,17 +44,21 @@ public abstract class Arc {
         textPaint = new Paint();
         textPath = new Path();
         rect = new RectF(0, 0, 0, 0);
-        arcText = new ArcText(arcColor, showArcText);
-
-        InitializeArcPaint(arcColor);
+        this.settings = settings;
+        arcText = new ArcText(arcColor);
+        initializeArcPaint(arcColor);
     }
 
-    private void InitializeArcPaint(int arcColor) {
+    private void initializeArcPaint(int arcColor) {
         arcPaint.setStyle(ArcStyle);
         arcPaint.setStrokeWidth(CircleStrokeWidth);
         arcPaint.setAntiAlias(SetCircleAntiAlias);
         arcPaint.setStrokeCap(StrokeCap);
         arcPaint.setColor(arcColor);
+    }
+
+    public void setSettings(PolarClockSettings settings) {
+        this.settings = settings;
     }
 
     public float getRectangleOffset() {
@@ -104,34 +108,46 @@ public abstract class Arc {
         private Path path;
         private int pathLength;
 
-        ArcText(@ColorInt int arcColor, boolean visible) {
-            this.visible = visible;
+        ArcText(@ColorInt int arcColor) {
             paint = new Paint();
             path = new Path();
 
+            visible = settings.showArcText;
             paint.setTextAlign(Paint.Align.RIGHT);
             paint.setStyle(Paint.Style.FILL);
             paint.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-            @ColorInt int textColor = GetTextColor(arcColor);
+            @ColorInt int textColor = getTextColor(arcColor);
             paint.setColor(textColor);
             paint.setTextSize(30);
         }
 
-        private int GetTextColor(@ColorInt int arcColor) {
-            return ColorAnalyzer.isColorBright(arcColor) ? Color.BLACK : Color.WHITE;
+        private @ColorInt int getTextColor(@ColorInt int arcColor) {
+            @ColorInt int color;
+            switch (settings.getArcTextColorSetting()) {
+                case BLACK:
+                    color = Color.BLACK;
+                    break;
+                case DYNAMIC:
+                    color = ColorAnalyzer.isColorBright(arcColor) ? Color.BLACK : Color.WHITE;
+                    break;
+                case WHITE:
+                default:
+                    color = Color.WHITE;
+            }
+            return color;
         }
 
         void setVisible(boolean visible) {
             this.visible = visible;
         }
 
-        void UpdateText(String text) {
+        void updateText(String text) {
             if (visible) {
                 this.text = text.toCharArray();
             }
         }
 
-        void UpdateLength() {
+        void updateLength() {
             if (visible) {
                 path.rewind();
                 path.arcTo(rect, ArcStartingAngle, currentSweepAngle);
@@ -141,7 +157,7 @@ public abstract class Arc {
             }
         }
 
-        void Draw(Canvas canvas) {
+        void draw(Canvas canvas) {
             if (visible) {
                 canvas.drawTextOnPath(text, 0, pathLength, path, 0, 12, paint);
             }

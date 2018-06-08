@@ -8,12 +8,12 @@ import java.util.Calendar;
 public class DaysArc extends Arc {
     private int currentDate;
 
-    public DaysArc(int radius, @ColorInt int arcColor, boolean showArcText) {
-        super(radius, arcColor, showArcText);
+    public DaysArc(int radius, @ColorInt int arcColor, PolarClockSettings settings) {
+        super(radius, arcColor, settings);
         ArcOffsetFactor = 1;
         RectangleOffset = ArcOffsetFactor * ArcOffsetConstant;
 
-        arcType = ArcTypes.Days;
+        arcType = ArcType.Days;
     }
 
     @Override
@@ -25,7 +25,7 @@ public class DaysArc extends Arc {
             int daysInMonth = currentDateTime.getActualMaximum(Calendar.DAY_OF_MONTH);
             float monthPercentComplete = (float) currentDate / daysInMonth;
             newSweepAngle = monthPercentComplete * MaxArcSweepAngle;
-            arcText.UpdateText("DAY " + currentDate);
+            arcText.updateText("DAY " + currentDate);
         }
     }
 
@@ -33,9 +33,9 @@ public class DaysArc extends Arc {
     public void draw(Canvas canvas, int viewHeightMidpoint, int viewWidthMidpoint) {
         if (currentSweepAngle != newSweepAngle) {
             CalculateArcParameters(viewHeightMidpoint, viewWidthMidpoint);
-            arcText.UpdateLength();
+            arcText.updateLength();
         }
         canvas.drawArc(rect, ArcStartingAngle, currentSweepAngle, false, arcPaint);
-        arcText.Draw(canvas);
+        arcText.draw(canvas);
     }
 }
