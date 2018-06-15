@@ -9,6 +9,7 @@ import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.support.annotation.ColorInt;
 
+import com.theskyegriffin.prettycoolpolarclock.PolarClockSettings;
 import com.theskyegriffin.prettycoolpolarclock.Utilities.ColorAnalyzer;
 
 import java.util.Calendar;
@@ -57,8 +58,8 @@ public abstract class Arc {
         arcPaint.setColor(arcColor);
     }
 
-    public void setSettings(PolarClockSettings settings) {
-        this.settings = settings;
+    public @ColorInt int getArcTextColor() {
+        return arcText.textColor;
     }
 
     public float getRectangleOffset() {
@@ -75,14 +76,6 @@ public abstract class Arc {
 
     public float getNewSweepAngle() {
         return newSweepAngle;
-    }
-
-    public void setNewSweepAngle(float newSweepAngle) {
-        this.newSweepAngle = newSweepAngle;
-    }
-
-    public void updateArcSettings(boolean arcTextVisible) {
-        arcText.setVisible(arcTextVisible);
     }
 
     void CalculateArcParameters(int viewHeightMidpoint, int viewWidthMidpoint) {
@@ -108,6 +101,8 @@ public abstract class Arc {
         private Path path;
         private int pathLength;
 
+        public @ColorInt int textColor;
+
         ArcText(@ColorInt int arcColor) {
             paint = new Paint();
             path = new Path();
@@ -116,7 +111,7 @@ public abstract class Arc {
             paint.setTextAlign(Paint.Align.RIGHT);
             paint.setStyle(Paint.Style.FILL);
             paint.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-            @ColorInt int textColor = getTextColor(arcColor);
+            textColor = getTextColor(arcColor);
             paint.setColor(textColor);
             paint.setTextSize(30);
         }
@@ -133,6 +128,7 @@ public abstract class Arc {
                 case WHITE:
                 default:
                     color = Color.WHITE;
+                    break;
             }
             return color;
         }

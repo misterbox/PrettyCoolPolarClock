@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 
 import com.theskyegriffin.prettycoolpolarclock.Arcs.Arc;
-import com.theskyegriffin.prettycoolpolarclock.Arcs.PolarClockSettings;
 import com.theskyegriffin.prettycoolpolarclock.Arcs.DaysArc;
 import com.theskyegriffin.prettycoolpolarclock.Arcs.DaysOfWeekArc;
 import com.theskyegriffin.prettycoolpolarclock.Arcs.HoursArc;

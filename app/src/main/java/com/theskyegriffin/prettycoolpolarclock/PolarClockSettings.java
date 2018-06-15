@@ -1,6 +1,8 @@
-package com.theskyegriffin.prettycoolpolarclock.Arcs;
+package com.theskyegriffin.prettycoolpolarclock;
 
 import android.util.Log;
+
+import com.theskyegriffin.prettycoolpolarclock.Arcs.ArcTextColorSetting;
 
 import java.util.Locale;
 
@@ -8,7 +10,7 @@ public class PolarClockSettings {
     public boolean showArcText;
     private ArcTextColorSetting arcTextColorSetting;
 
-    public PolarClockSettings(boolean showArcText, String arcTextColorSettingString) {
+    PolarClockSettings(boolean showArcText, String arcTextColorSettingString) {
         this.showArcText = showArcText;
         setArcTextColorSetting(arcTextColorSettingString);
     }
@@ -17,7 +19,7 @@ public class PolarClockSettings {
         return arcTextColorSetting;
     }
 
-    public void setArcTextColorSetting(String arcTextColorSettingString) {
+    private void setArcTextColorSetting(String arcTextColorSettingString) {
         this.arcTextColorSetting = parseArcTextColorSetting(arcTextColorSettingString);
     }
 

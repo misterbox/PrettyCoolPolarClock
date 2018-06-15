@@ -3,6 +3,8 @@ package com.theskyegriffin.prettycoolpolarclock.Arcs;
 import android.graphics.Canvas;
 import android.support.annotation.ColorInt;
 
+import com.theskyegriffin.prettycoolpolarclock.PolarClockSettings;
+
 import java.util.Calendar;
 
 public class MinutesArc extends Arc {
