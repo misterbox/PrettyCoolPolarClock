@@ -11,6 +11,10 @@ public abstract class Arc {
     @ColorInt private final int arcColor;
     private Calendar currentTime;
 
+    final float ArcOffsetConstant;
+    float ArcOffsetMultiple = 1;
+    float RectangleOffset = 0;
+
     ArcType arcType;
     final Paint arcPaint;
     final RectF rect;
@@ -18,6 +22,8 @@ public abstract class Arc {
     Arc(float radius, @ColorInt int color) {
         this.radius = radius;
         this.arcColor = color;
+        float arcOffsetFactor = (float) 1 / 8;
+        ArcOffsetConstant = radius * arcOffsetFactor;
 
         arcPaint = new Paint();
         rect = new RectF(0, 0, 0, 0);
@@ -45,7 +51,7 @@ public abstract class Arc {
         float startTopPoint = viewHeightMidpoint - radius;
         float startRightPoint = viewWidthMidpoint + radius;
         float startBottomPoint = viewHeightMidpoint + radius;
-        rect.set(startLeftPoint, startTopPoint, startRightPoint, startBottomPoint);
+        rect.set(startLeftPoint + RectangleOffset, startTopPoint + RectangleOffset, startRightPoint - RectangleOffset, startBottomPoint - RectangleOffset);
 
         return new ArcDrawable(rect);
     }
