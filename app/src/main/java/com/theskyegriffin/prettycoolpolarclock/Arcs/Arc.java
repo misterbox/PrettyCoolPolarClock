@@ -42,10 +42,10 @@ public abstract class Arc {
 
     public ArcDrawable getDrawable(float viewHeightMidpoint, float viewWidthMidpoint) {
         float startLeftPoint = viewWidthMidpoint - radius;
-        float startTopOint = viewHeightMidpoint - radius;
+        float startTopPoint = viewHeightMidpoint - radius;
         float startRightPoint = viewWidthMidpoint + radius;
         float startBottomPoint = viewHeightMidpoint + radius;
-        rect.set(startLeftPoint, startTopOint, startRightPoint, startBottomPoint);
+        rect.set(startLeftPoint, startTopPoint, startRightPoint, startBottomPoint);
 
         return new ArcDrawable(rect);
     }

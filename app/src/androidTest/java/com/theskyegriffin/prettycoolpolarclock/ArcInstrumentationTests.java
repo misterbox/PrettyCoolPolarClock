@@ -11,7 +11,7 @@ import java.util.Calendar;
 
 import static org.junit.Assert.assertEquals;
 
-public class ArcTests {
+public class ArcInstrumentationTests {
     @Test
     public void getDrawable_GivenCurrentTime_ReturnsDrawable_WithExpectedDimensions() {
         Calendar currentTime = Calendar.getInstance();
