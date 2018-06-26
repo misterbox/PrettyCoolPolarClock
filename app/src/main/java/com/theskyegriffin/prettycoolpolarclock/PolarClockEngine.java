@@ -32,16 +32,16 @@ public class PolarClockEngine {
         this.surfaceHolder = surfaceHolder;
     }
 
-    public void updateCurrentTime(Calendar currentTime, int viewHeightMidpoint, int viewWidthMidpoint) {
+    public void updateCurrentTime(Calendar currentTime, float viewHeightMidpoint, float viewWidthMidpoint) {
         this.currentTime = currentTime;
         onUpdateCurrentTime(viewHeightMidpoint, viewWidthMidpoint);
     }
 
-    private void onUpdateCurrentTime(int viewHeightMidpoint, int viewWidthMidpoint) {
+    private void onUpdateCurrentTime(float viewHeightMidpoint, float viewWidthMidpoint) {
         for (Arc arc : arcs) {
             arc.setCurrentTime(currentTime);
             ArcDrawable drawable = arc.getDrawable(viewHeightMidpoint, viewWidthMidpoint);
-            drawer.draw(drawable);
+            drawer.draw(drawable, surfaceHolder);
         }
     }
 }
