@@ -1,6 +1,7 @@
 package com.theskyegriffin.prettycoolpolarclock;
 
 import android.graphics.Color;
+import android.support.annotation.ColorInt;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.theskyegriffin.prettycoolpolarclock.Arcs.ArcDrawable;
@@ -64,5 +65,17 @@ public class ArcInstrumentationTests {
         ArcDrawable drawable = arc.getDrawable(viewHeightMidpoint, viewWidthMidpoint);
 
         assertEquals(expectedSweepAngle, drawable.sweepAngle, 1.0);
+    }
+
+    @Test
+    public void getDrawable_GivenSecondsArc_AndArcColor_ReturnsDrawable_WithExpectedPaintColor() {
+        @ColorInt int expectedColor = Color.RED;
+        Calendar calendar = Calendar.getInstance();
+        SecondsArc arc = new SecondsArc(radius, expectedColor);
+
+        arc.setCurrentTime(calendar);
+        ArcDrawable drawable = arc.getDrawable(viewHeightMidpoint, viewWidthMidpoint);
+
+        assertEquals(expectedColor, drawable.paint.getColor());
     }
 }

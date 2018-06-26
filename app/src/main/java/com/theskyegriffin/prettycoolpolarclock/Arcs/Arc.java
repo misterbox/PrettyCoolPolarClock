@@ -55,6 +55,6 @@ public abstract class Arc {
         float startBottomPoint = viewHeightMidpoint + radius;
         rect.set(startLeftPoint + RectangleOffset, startTopPoint + RectangleOffset, startRightPoint - RectangleOffset, startBottomPoint - RectangleOffset);
 
-        return new ArcDrawable(rect, startAngle, sweepAngle);
+        return new ArcDrawable(rect, startAngle, sweepAngle, arcPaint);
     }
 }
