@@ -9,7 +9,7 @@ import java.util.Calendar;
 public abstract class Arc {
     private final float radius;
     @ColorInt private final int arcColor;
-    private Calendar currentTime;
+    Calendar currentTime;
 
     final float ArcOffsetConstant;
     float ArcOffsetMultiple = 1;
@@ -18,6 +18,10 @@ public abstract class Arc {
     ArcType arcType;
     final Paint arcPaint;
     final RectF rect;
+
+    final float MaxArcSweepAngle = 359.9f;
+    float startAngle = 270;
+    float sweepAngle = 0;
 
     Arc(float radius, @ColorInt int color) {
         this.radius = radius;
@@ -42,9 +46,7 @@ public abstract class Arc {
         return currentTime;
     }
 
-    public void setCurrentTime(Calendar currentTime) {
-        this.currentTime = currentTime;
-    }
+    public abstract void setCurrentTime(Calendar currentTime);
 
     public ArcDrawable getDrawable(float viewHeightMidpoint, float viewWidthMidpoint) {
         float startLeftPoint = viewWidthMidpoint - radius;
@@ -53,6 +55,6 @@ public abstract class Arc {
         float startBottomPoint = viewHeightMidpoint + radius;
         rect.set(startLeftPoint + RectangleOffset, startTopPoint + RectangleOffset, startRightPoint - RectangleOffset, startBottomPoint - RectangleOffset);
 
-        return new ArcDrawable(rect);
+        return new ArcDrawable(rect, startAngle, sweepAngle);
     }
 }

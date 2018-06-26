@@ -38,4 +38,31 @@ public class ArcInstrumentationTests {
         assertEquals(expectedRectBottomPoint, drawable.rect.bottom, 0);
     }
 
+    @Test
+    public void getDrawable_GivenSecondsArc_AndCurrentTime_ReturnsDrawable_WithExpectedStartAngle_AndSweepAngle() {
+        float expectedSweepAngle = 0;
+        float expectedStartAngle = 270;
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2018, 1, 1, 0, 0, 0);
+        SecondsArc arc = new SecondsArc(radius, Color.BLACK);
+
+        arc.setCurrentTime(calendar);
+        ArcDrawable drawable = arc.getDrawable(viewHeightMidpoint, viewWidthMidpoint);
+
+        assertEquals(expectedStartAngle, drawable.startAngle, 0);
+        assertEquals(expectedSweepAngle, drawable.sweepAngle, 0);
+    }
+
+    @Test
+    public void getDrawable_GivenSecondsArc_AndCurrentTime_ReturnsDrawable_AndSweepAngle() {
+        float expectedSweepAngle = 180;
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2018, 1, 1, 0, 0, 30);
+        SecondsArc arc = new SecondsArc(radius, Color.BLACK);
+
+        arc.setCurrentTime(calendar);
+        ArcDrawable drawable = arc.getDrawable(viewHeightMidpoint, viewWidthMidpoint);
+
+        assertEquals(expectedSweepAngle, drawable.sweepAngle, 1.0);
+    }
 }
