@@ -86,7 +86,7 @@ public class PrettyCoolPolarClockService extends WallpaperService {
 
         private void updateTime() {
             Calendar currentDateTime = Calendar.getInstance();
-            clock.updateCurrentTime(currentDateTime);
+            clock.updateCurrentTime(currentDateTime, , );
         }
 
         private void draw() {

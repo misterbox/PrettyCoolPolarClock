@@ -25,7 +25,7 @@ public class PolarClockEngineTests {
         PolarClockEngine engine = new PolarClockEngine(arcFactory);
         Calendar currentTime = Calendar.getInstance();
 
-        engine.updateCurrentTime(currentTime);
+        engine.updateCurrentTime(currentTime, , );
 
         assertEquals(currentTime, secondsArc.getCurrentTime());
     }
