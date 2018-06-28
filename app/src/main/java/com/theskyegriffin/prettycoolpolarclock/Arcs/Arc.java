@@ -22,6 +22,7 @@ public abstract class Arc {
     final float MaxArcSweepAngle = 359.9f;
     float startAngle = 270;
     float sweepAngle = 0;
+    float updatedSweepAngle = 0;
 
     Arc(float radius, @ColorInt int color) {
         this.radius = radius;
@@ -47,6 +48,14 @@ public abstract class Arc {
     }
 
     public abstract void setCurrentTime(Calendar currentTime);
+
+    public float getCurrentSweepAngle() {
+        return sweepAngle;
+    }
+
+    public float getUpdatedSweepAngle() {
+        return updatedSweepAngle;
+    }
 
     public ArcDrawable getDrawable(float viewHeightMidpoint, float viewWidthMidpoint) {
         float startLeftPoint = viewWidthMidpoint - radius;

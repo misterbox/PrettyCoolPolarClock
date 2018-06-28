@@ -55,16 +55,15 @@ public class ArcInstrumentationTests {
     }
 
     @Test
-    public void getDrawable_GivenSecondsArc_AndCurrentTime_ReturnsDrawable_AndSweepAngle() {
+    public void setCurrentTime_GivenCurrentTime_SetsExpectedUpdatedSweepAngle() {
         float expectedSweepAngle = 180;
         Calendar calendar = Calendar.getInstance();
         calendar.set(2018, 1, 1, 0, 0, 30);
         SecondsArc arc = new SecondsArc(radius, Color.BLACK);
 
         arc.setCurrentTime(calendar);
-        ArcDrawable drawable = arc.getDrawable(viewHeightMidpoint, viewWidthMidpoint);
 
-        assertEquals(expectedSweepAngle, drawable.sweepAngle, 1.0);
+        assertEquals(expectedSweepAngle, arc.getUpdatedSweepAngle(), 1.0);
     }
 
     @Test

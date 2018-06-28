@@ -18,6 +18,6 @@ public class SecondsArc extends Arc {
         this.currentTime = currentTime;
         currentSecond = currentTime.get(Calendar.SECOND);
         float minutePercentComplete = (float) currentSecond / 60;
-        sweepAngle = minutePercentComplete * MaxArcSweepAngle;
+        updatedSweepAngle = minutePercentComplete * MaxArcSweepAngle;
     }
 }
