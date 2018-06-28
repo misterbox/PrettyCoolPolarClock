@@ -13,8 +13,6 @@ import java.util.Calendar;
 
 public class PrettyCoolPolarClockService extends WallpaperService {
     PolarClockSettings settings;
-    float viewHeightMidpoint = 0;
-    float viewWidthMidpoint = 0;
 
     @Override
     public Engine onCreateEngine() {
@@ -83,14 +81,13 @@ public class PrettyCoolPolarClockService extends WallpaperService {
             Log.d("ENGINE", "onSurfaceChanged, width: " + width + " height: " + height);
             super.onSurfaceChanged(surfaceHolder, format, width, height);
             this.surfaceHolder = surfaceHolder;
-            viewHeightMidpoint = height / 2;
-            viewWidthMidpoint = width / 2;
             clock.setSurfaceHolder(surfaceHolder);
+            clock.setViewDimensions(height, width);
         }
 
         private void updateTime() {
             Calendar currentDateTime = Calendar.getInstance();
-            clock.updateCurrentTime(currentDateTime, viewHeightMidpoint, viewWidthMidpoint);
+            clock.updateCurrentTime(currentDateTime);
         }
 
         private void draw() {

@@ -17,6 +17,8 @@ public class PolarClockEngine {
     private SurfaceHolder surfaceHolder;
     private Calendar currentTime;
     private ArrayList<Arc> arcs;
+    private float viewHeightMidpoint = 0;
+    private float viewWidthMidpoint = 0;
 
     public PolarClockEngine() {
         this(new ArcFactory(), new ArcDrawer());
@@ -32,12 +34,14 @@ public class PolarClockEngine {
         this.surfaceHolder = surfaceHolder;
     }
 
-    public void updateCurrentTime(Calendar currentTime, float viewHeightMidpoint, float viewWidthMidpoint) {
-        this.currentTime = currentTime;
-        onUpdateCurrentTime(viewHeightMidpoint, viewWidthMidpoint);
+    public void setViewDimensions(float viewHeight, float viewWidth) {
+        viewHeightMidpoint = viewHeight / 2;
+        viewWidthMidpoint = viewWidth / 2;
     }
 
-    private void onUpdateCurrentTime(float viewHeightMidpoint, float viewWidthMidpoint) {
+    public void updateCurrentTime(Calendar currentTime) {
+        this.currentTime = currentTime;
+
         for (Arc arc : arcs) {
             arc.setCurrentTime(currentTime);
             ArcDrawable drawable = arc.getDrawable(viewHeightMidpoint, viewWidthMidpoint);
