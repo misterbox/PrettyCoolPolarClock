@@ -9,6 +9,9 @@ import android.service.wallpaper.WallpaperService;
 import android.util.Log;
 import android.view.SurfaceHolder;
 
+import com.theskyegriffin.prettycoolpolarclock.Settings.PolarClockSettings;
+import com.theskyegriffin.prettycoolpolarclock.Settings.PolarClockSettingsActivity;
+
 import java.util.Calendar;
 
 public class PrettyCoolPolarClockService extends WallpaperService {

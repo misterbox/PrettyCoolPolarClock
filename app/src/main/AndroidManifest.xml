@@ -28,7 +28,7 @@
                 android:resource="@xml/wallpaper"/>
         </service>
 
-        <activity android:name=".PolarClockSettingsActivity">
+        <activity android:name=".Settings.PolarClockSettingsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

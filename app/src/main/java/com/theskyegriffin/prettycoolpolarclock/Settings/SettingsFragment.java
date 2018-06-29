@@ -1,4 +1,4 @@
-package com.theskyegriffin.prettycoolpolarclock;
+package com.theskyegriffin.prettycoolpolarclock.Settings;
 
 import android.app.WallpaperManager;
 import android.content.ComponentName;
@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.util.Log;
+
+import com.theskyegriffin.prettycoolpolarclock.PrettyCoolPolarClockService;
+import com.theskyegriffin.prettycoolpolarclock.R;
 
 public class SettingsFragment extends PreferenceFragment {
 

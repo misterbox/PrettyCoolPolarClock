@@ -1,7 +1,9 @@
-package com.theskyegriffin.prettycoolpolarclock;
+package com.theskyegriffin.prettycoolpolarclock.Settings;
 
 import android.app.Activity;
 import android.os.Bundle;
+
+import com.theskyegriffin.prettycoolpolarclock.Settings.SettingsFragment;
 
 public class PolarClockSettingsActivity extends Activity {
     public static final String KEY_PREF_SET_WALLPAPER_BUTTON = "pref_setWallpaperButton";

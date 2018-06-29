@@ -1,10 +1,10 @@
-package com.theskyegriffin.prettycoolpolarclock;
+package com.theskyegriffin.prettycoolpolarclock.Settings;
 
 public class PolarClockSettings {
     public boolean showArcText;
 //    private ArcTextColorSetting arcTextColorSetting;
 
-    PolarClockSettings(boolean showArcText, String arcTextColorSettingString) {
+    public PolarClockSettings(boolean showArcText, String arcTextColorSettingString) {
         this.showArcText = showArcText;
 //        setArcTextColorSetting(arcTextColorSettingString);
     }
