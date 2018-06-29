@@ -4,9 +4,11 @@ import android.animation.ValueAnimator;
 import android.view.SurfaceHolder;
 
 import com.theskyegriffin.prettycoolpolarclock.Arcs.Arc;
+import com.theskyegriffin.prettycoolpolarclock.Arcs.ArcAnimationFactory;
 import com.theskyegriffin.prettycoolpolarclock.Arcs.ArcAnimationSet;
 import com.theskyegriffin.prettycoolpolarclock.Arcs.ArcDrawer;
 import com.theskyegriffin.prettycoolpolarclock.Arcs.ArcFactory;
+import com.theskyegriffin.prettycoolpolarclock.Arcs.IArcAnimationFactory;
 import com.theskyegriffin.prettycoolpolarclock.Arcs.IArcFactory;
 
 import java.util.ArrayList;
@@ -14,19 +16,21 @@ import java.util.Calendar;
 
 public class PolarClockEngine {
     private final ArcDrawer drawer;
+    private final IArcAnimationFactory animationFactory;
     private IArcFactory arcFactory;
     private Calendar currentTime;
     private ArrayList<Arc> arcs;
     private ArcAnimationSet animationSet;
 
     public PolarClockEngine() {
-        this(new ArcFactory(), new ArcDrawer());
+        this(new ArcFactory(), new ArcDrawer(), new ArcAnimationFactory());
     }
 
-    public PolarClockEngine(IArcFactory arcFactory, ArcDrawer drawer) {
+    public PolarClockEngine(IArcFactory arcFactory, ArcDrawer drawer, IArcAnimationFactory animationFactory) {
         this.arcFactory = arcFactory;
         arcs = this.arcFactory.buildArcs();
         this.drawer = drawer;
+        this.animationFactory = animationFactory;
     }
 
     public void setSurfaceHolder(SurfaceHolder surfaceHolder) {
@@ -45,7 +49,7 @@ public class PolarClockEngine {
             arc.setCurrentTime(currentTime);
 
             if (arc.isReadyForDrawing()) {
-                ValueAnimator animator = ValueAnimator.ofFloat(arc.getCurrentSweepAngle(), arc.getUpdatedSweepAngle()).setDuration(500);
+                ValueAnimator animator = animationFactory.build(arc);
                 animationSet.add(animator, arc);
             }
         }
