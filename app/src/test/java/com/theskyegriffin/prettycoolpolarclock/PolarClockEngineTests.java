@@ -18,7 +18,7 @@ public class PolarClockEngineTests {
     TestArcFactory arcFactory;
 
     @Test
-    public void updateCurrentTime_givenUpdatedTime_updatesTimeOnArcs() {
+    public void updateCurrentTime_GivenUpdatedTime_UpdatesTimeOnArcs() {
         ArrayList<Arc> arcs = new ArrayList<Arc>();
         SecondsArc secondsArc = new SecondsArc(0, Color.BLACK);
         arcs.add(secondsArc);

@@ -8,15 +8,23 @@ import android.view.SurfaceHolder;
 import java.util.ArrayList;
 
 public class ArcDrawer {
-    public SurfaceHolder surfaceHolder;
+    private SurfaceHolder surfaceHolder;
+    private float viewHeightMidpoint = 0;
+    private float viewWidthMidpoint = 0;
 
     public void setSurfaceHolder(SurfaceHolder surfaceHolder) {
         this.surfaceHolder = surfaceHolder;
     }
 
+    public void setViewDimensions(float viewHeight, float viewWidth) {
+        viewHeightMidpoint = viewHeight / 2;
+        viewWidthMidpoint = viewWidth / 2;
+    }
+
     public void drawArcs(ArrayList<Arc> arcs) {
-        // Draw arcs that are currently ready for drawing
-        // TESTS
+        for (Arc arc : arcs) {
+            draw(arc.getDrawable(viewHeightMidpoint, viewWidthMidpoint));
+        }
     }
 
     public void draw(ArcDrawable drawable) {

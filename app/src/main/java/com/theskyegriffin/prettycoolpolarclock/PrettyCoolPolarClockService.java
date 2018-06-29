@@ -1,8 +1,6 @@
 package com.theskyegriffin.prettycoolpolarclock;
 
 import android.content.SharedPreferences;
-import android.graphics.Canvas;
-import android.graphics.Color;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.service.wallpaper.WallpaperService;
@@ -76,7 +74,7 @@ public class PrettyCoolPolarClockService extends WallpaperService {
             super.onSurfaceDestroyed(surfaceHolder);
             this.isVisible = false;
             handler.removeCallbacks(polarClockRunner);
-            clock.setSurfaceHolder(null);
+            clock.stop();
         }
 
         @Override
@@ -91,29 +89,6 @@ public class PrettyCoolPolarClockService extends WallpaperService {
         private void updateTime() {
             Calendar currentDateTime = Calendar.getInstance();
             clock.updateCurrentTime(currentDateTime);
-        }
-
-        private void draw() {
-            Canvas canvas = null;
-
-            try {
-                canvas = surfaceHolder.lockCanvas();
-
-                if (canvas != null) {
-                    Log.d("ENGINE", "drawing");
-                    canvas.drawColor(Color.BLACK);
-                }
-            }
-            catch (Exception e) {
-                Log.d("ENGINE", "Error getting canvas from surface holder on draw" + System.lineSeparator() +
-                        "Message: " + e.getMessage() + System.lineSeparator() +
-                        "Stack trace: " + e.getStackTrace());
-            }
-            finally {
-                if (canvas != null) {
-                    surfaceHolder.unlockCanvasAndPost(canvas);
-                }
-            }
         }
     }
 }

@@ -49,8 +49,16 @@ public abstract class Arc {
 
     public abstract void setCurrentTime(Calendar currentTime);
 
+    public float getStartAngle() {
+        return startAngle;
+    }
+
     public float getCurrentSweepAngle() {
         return sweepAngle;
+    }
+
+    public void setCurrentSweepAngle(float angle) {
+        sweepAngle = angle;
     }
 
     public float getUpdatedSweepAngle() {
