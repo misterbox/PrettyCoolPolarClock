@@ -6,7 +6,13 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 
 public class ArcDrawer {
-    public void draw(ArcDrawable drawable, SurfaceHolder surfaceHolder) {
+    public SurfaceHolder surfaceHolder;
+
+    public void setSurfaceHolder(SurfaceHolder surfaceHolder) {
+        this.surfaceHolder = surfaceHolder;
+    }
+
+    public void draw(ArcDrawable drawable) {
         Canvas canvas = null;
 
         try {

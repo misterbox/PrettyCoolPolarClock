@@ -14,7 +14,6 @@ import java.util.Calendar;
 public class PolarClockEngine {
     private final ArcDrawer drawer;
     private IArcFactory arcFactory;
-    private SurfaceHolder surfaceHolder;
     private Calendar currentTime;
     private ArrayList<Arc> arcs;
     private float viewHeightMidpoint = 0;
@@ -31,7 +30,7 @@ public class PolarClockEngine {
     }
 
     public void setSurfaceHolder(SurfaceHolder surfaceHolder) {
-        this.surfaceHolder = surfaceHolder;
+        drawer.setSurfaceHolder(surfaceHolder);
     }
 
     public void setViewDimensions(float viewHeight, float viewWidth) {
@@ -45,7 +44,7 @@ public class PolarClockEngine {
         for (Arc arc : arcs) {
             arc.setCurrentTime(currentTime);
             ArcDrawable drawable = arc.getDrawable(viewHeightMidpoint, viewWidthMidpoint);
-            drawer.draw(drawable, surfaceHolder);
+            drawer.draw(drawable);
         }
     }
 }
