@@ -5,11 +5,18 @@ import android.graphics.Color;
 import android.util.Log;
 import android.view.SurfaceHolder;
 
+import java.util.ArrayList;
+
 public class ArcDrawer {
     public SurfaceHolder surfaceHolder;
 
     public void setSurfaceHolder(SurfaceHolder surfaceHolder) {
         this.surfaceHolder = surfaceHolder;
+    }
+
+    public void drawArcs(ArrayList<Arc> arcs) {
+        // Draw arcs that are currently ready for drawing
+        // TESTS
     }
 
     public void draw(ArcDrawable drawable) {

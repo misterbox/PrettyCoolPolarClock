@@ -57,6 +57,10 @@ public abstract class Arc {
         return updatedSweepAngle;
     }
 
+    public boolean isReadyForDrawing() {
+        return sweepAngle != updatedSweepAngle;
+    }
+
     public ArcDrawable getDrawable(float viewHeightMidpoint, float viewWidthMidpoint) {
         float startLeftPoint = viewWidthMidpoint - radius;
         float startTopPoint = viewHeightMidpoint - radius;

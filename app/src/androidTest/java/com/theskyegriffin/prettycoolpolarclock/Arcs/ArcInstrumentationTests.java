@@ -1,11 +1,8 @@
-package com.theskyegriffin.prettycoolpolarclock;
+package com.theskyegriffin.prettycoolpolarclock.Arcs;
 
 import android.graphics.Color;
 import android.support.annotation.ColorInt;
 import android.support.test.runner.AndroidJUnit4;
-
-import com.theskyegriffin.prettycoolpolarclock.Arcs.ArcDrawable;
-import com.theskyegriffin.prettycoolpolarclock.Arcs.SecondsArc;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -52,18 +49,6 @@ public class ArcInstrumentationTests {
 
         assertEquals(expectedStartAngle, drawable.startAngle, 0);
         assertEquals(expectedSweepAngle, drawable.sweepAngle, 0);
-    }
-
-    @Test
-    public void setCurrentTime_GivenCurrentTime_SetsExpectedUpdatedSweepAngle() {
-        float expectedSweepAngle = 180;
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(2018, 1, 1, 0, 0, 30);
-        SecondsArc arc = new SecondsArc(radius, Color.BLACK);
-
-        arc.setCurrentTime(calendar);
-
-        assertEquals(expectedSweepAngle, arc.getUpdatedSweepAngle(), 1.0);
     }
 
     @Test
