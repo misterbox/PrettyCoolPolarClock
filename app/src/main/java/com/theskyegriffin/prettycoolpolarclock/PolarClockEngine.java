@@ -62,6 +62,6 @@ public class PolarClockEngine {
             animationSet.stop();
         }
 
-        drawer.setSurfaceHolder(null);
+//        drawer.setSurfaceHolder(null);
     }
 }

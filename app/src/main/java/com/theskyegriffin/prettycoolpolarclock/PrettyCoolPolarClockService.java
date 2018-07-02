@@ -31,7 +31,6 @@ public class PrettyCoolPolarClockService extends WallpaperService {
 
     class PolarClockWallpaperEngine extends Engine {
         private final Handler handler;
-        private SurfaceHolder surfaceHolder;
         private boolean isVisible = false;
         private PolarClockEngine clock;
 
@@ -58,13 +57,13 @@ public class PrettyCoolPolarClockService extends WallpaperService {
             }
             else {
                 handler.removeCallbacks(polarClockRunner);
+                clock.stop();
             }
         }
 
         @Override
         public void onSurfaceCreated(SurfaceHolder holder) {
             Log.d("ENGINE", "onSurfaceCreated");
-            surfaceHolder = holder;
             clock.setSurfaceHolder(holder);
         }
 
@@ -81,7 +80,6 @@ public class PrettyCoolPolarClockService extends WallpaperService {
         public void onSurfaceChanged(SurfaceHolder surfaceHolder, int format, int width, int height) {
             Log.d("ENGINE", "onSurfaceChanged, width: " + width + " height: " + height);
             super.onSurfaceChanged(surfaceHolder, format, width, height);
-            this.surfaceHolder = surfaceHolder;
             clock.setSurfaceHolder(surfaceHolder);
             clock.setViewDimensions(height, width);
         }

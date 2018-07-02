@@ -43,10 +43,6 @@ public abstract class Arc {
         arcPaint.setColor(arcColor);
     }
 
-    public Calendar getCurrentTime() {
-        return currentTime;
-    }
-
     public abstract void setCurrentTime(Calendar currentTime);
 
     public float getStartAngle() {
